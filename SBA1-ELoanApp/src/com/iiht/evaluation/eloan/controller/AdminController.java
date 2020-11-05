@@ -23,6 +23,7 @@ import com.iiht.evaluation.eloan.model.ApprovedLoan;
 import com.iiht.evaluation.eloan.model.LoanInfo;
 
 
+
 @WebServlet("/admin")
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,6 +32,7 @@ public class AdminController extends HttpServlet {
 	public void setConnDao(ConnectionDao connDao) {
 		this.connDao = connDao;
 	}
+	
 	public void init(ServletConfig config) {
 		String jdbcURL = config.getServletContext().getInitParameter("jdbcUrl");
 		String jdbcUsername = config.getServletContext().getInitParameter("jdbcUsername");
