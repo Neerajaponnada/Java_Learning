@@ -28,7 +28,7 @@ import com.iiht.evaluation.eloan.model.LoanInfo;
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ConnectionDao connDao;
-	
+	//
 	public void setConnDao(ConnectionDao connDao) {
 		this.connDao = connDao;
 	}
