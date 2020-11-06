@@ -1,7 +1,11 @@
 package com.iiht.evaluation.eloan.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -12,11 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.iiht.evaluation.eloan.dao.ConnectionDao;
+import com.iiht.evaluation.eloan.model.Attributes;
+import com.iiht.evaluation.eloan.model.User;
 
 
 
-
-@WebServlet("/user")
+@WebServlet({ "/user","/registernewuser"})
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 private ConnectionDao connDao;
@@ -24,6 +29,7 @@ private ConnectionDao connDao;
 	public void setConnDao(ConnectionDao connDao) {
 		this.connDao = connDao;
 	}
+	
 	public void init(ServletConfig config) {
 		String jdbcURL = config.getServletContext().getInitParameter("jdbcUrl");
 		String jdbcUsername = config.getServletContext().getInitParameter("jdbcUsername");
@@ -39,42 +45,43 @@ private ConnectionDao connDao;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String action = request.getParameter("action");
 		
+		String action = request.getServletPath();
+		System.out.println("action:"+action);
 		String viewName = "";
 		try {
 			switch (action) {
-			case "registernewuser":
+			case "/registernewuser":
 				viewName=registernewuser(request,response);
 				break;
-			case "validate":
+			case "/validate":
 				viewName=validate(request,response);
 				break;
-			case "placeloan":
+			case "/placeloan":
 				viewName=placeloan(request,response);
 				break;
-			case "application1":
+			case "/application1":
 				viewName=application1(request,response);
 				break;
-			case "editLoanProcess"  :
+			case "/editLoanProcess"  :
 				viewName=editLoanProcess(request,response);
 				break;
-			case "registeruser":
+			case "/registeruser":
 				viewName=registerUser(request,response);
 				break;
-			case "register":
+			case "/register":
 				viewName = register(request, response);
 				break;
-			case "application":
+			case "/application":
 				viewName = application(request, response);
 				break;
-			case "trackloan":
+			case "/trackloan":
 				viewName = trackloan(request, response);
 				break;
-			case "editloan":
+			case "/editloan":
 				viewName = editloan(request, response);
 				break;	
-			case  "displaystatus" :
+			case  "/displaystatus" :
 				viewName=displaystatus(request,response);
 				break;
 			default : viewName = "notfound.jsp"; break;	
@@ -83,8 +90,7 @@ private ConnectionDao connDao;
 			
 			throw new ServletException(ex.getMessage());
 		}
-			RequestDispatcher dispatch = 
-					request.getRequestDispatcher(viewName);
+			RequestDispatcher dispatch = request.getRequestDispatcher(viewName);
 			dispatch.forward(request, response);
 	}
 	private String validate(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -115,12 +121,46 @@ private ConnectionDao connDao;
 		/* write the code to redirect page to read the user details */
 		return "newuserui.jsp";
 	}
-	private String registernewuser(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-		// TODO Auto-generated method stub
-		/* write the code to create the new user account read from user 
-		   and return to index page */
+	private String registernewuser(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+		System.out.println("In registernewuser method");
+		/* write the code to create the new user account read from user and return to index page */
+		User newUser = new User();
 		
-		return null;
+		newUser.setUsername(request.getParameter("userName"));
+		newUser.setDateOfBirth(LocalDate.parse(request.getParameter("dateOfBirth")));
+		newUser.setGender(request.getParameter("gender"));
+		newUser.setEmailId(request.getParameter("emailId"));
+		newUser.setPassword(request.getParameter("pwd"));
+		System.out.println("user:"+request.getParameter("userName"));
+
+				
+				try{
+					Connection conn = ConnectionDao.connect(); 
+					PreparedStatement ps = conn.prepareStatement(Attributes.INS_NEW_USER);			
+				System.out.println("connection established to DB");
+				System.out.println("newUser.getUsername():"+newUser.getUsername());
+				ps.setString(1, newUser.getUsername());
+				ps.setDate(2, Date.valueOf(newUser.getDateOfBirth()));
+				ps.setString(3, newUser.getGender());
+				ps.setString(4, newUser.getEmailId());
+				ps.setString(5, newUser.getPassword());
+				
+				ps.executeUpdate();
+				
+				ps = conn.prepareStatement(Attributes.INS_ROLES);
+				ps.setString(1, newUser.getUsername());
+				ps.setString(2, newUser.getPassword());
+				ps.executeUpdate();
+				
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+
+		request.setAttribute("newUser", newUser);
+		//request.getRequestDispatcher("newuserui.jsp").forward(request, response);
+		
+		return "newuserui.jsp";
 	}
 	
 	private String register(HttpServletRequest request, HttpServletResponse response) {
