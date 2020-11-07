@@ -12,22 +12,23 @@ public class User {
 	private String username;
 	private String password;
 	
+	private String role;
 	
 	public User() {
 		
 	}
 
-	public User(String fullname, String gender, LocalDate dateOfBirth, String emailId, String username, String password) {
-	super();
-	this.fullname = fullname;
-	Gender = gender;
-	this.dateOfBirth = dateOfBirth;
-	this.emailId = emailId;
-	this.username = username;
-	this.password = password;
-}
-
-
+	public User(String fullname, String gender, LocalDate dateOfBirth, String emailId, String username, String password,
+			String role) {
+		super();
+		this.fullname = fullname;
+		Gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.emailId = emailId;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 
 
 	public String getFullname() {
@@ -66,6 +67,14 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

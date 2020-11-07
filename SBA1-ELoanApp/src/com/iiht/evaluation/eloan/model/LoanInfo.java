@@ -1,19 +1,22 @@
 package com.iiht.evaluation.eloan.model;
 
 public class LoanInfo {
-	private String applno;
+	 private String applno;
 	 private String purpose;
 	 private int amtrequest;
 	 private String doa;
 	 private String bstructure;
 	 private String bindicator;
 	 private String address;
+	 private int term;
 	 @Override
 	public String toString() {
 		return "LoanInfo [applno=" + applno + ", purpose=" + purpose + ", amtrequest=" + amtrequest + ", doa=" + doa
 				+ ", bstructure=" + bstructure + ", bindicator=" + bindicator + ", address=" + address + ", email="
 				+ email + ", mobile=" + mobile + ", status=" + status + "]";
 	}
+	 
+	 
 	private String email;
 	 private String mobile;
 	 private String status;
@@ -21,7 +24,7 @@ public class LoanInfo {
 		 
 	 }
 	 public LoanInfo(String applno, String purpose, int amtrequest, String doa, String bstructure, String bindicator,
-			String address, String email, String mobile,String status) {
+			String address, String email, String mobile,String status, int term) {
 		super();
 		this.applno = applno;
 		this.purpose = purpose;
@@ -33,6 +36,7 @@ public class LoanInfo {
 		this.email = email;
 		this.mobile = mobile;
 		this.status=status;
+		this.term=term;
 	}
 
 	public String getApplno() {
@@ -94,6 +98,12 @@ public class LoanInfo {
 	}
 	public String getStatus() {
 		return status;
+	}
+	public int getTerm() {
+		return term;
+	}
+	public void setTerm(int term) {
+		this.term = term;
 	}
 
 }
