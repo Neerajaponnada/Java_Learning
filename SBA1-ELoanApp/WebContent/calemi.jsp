@@ -6,13 +6,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Loan - Approved</title>
 </head>
 <body>
- <!--
-     Read the values from the admin servlet and cal emi and other details and send to
-     to the same admin servlet to update the values in the database 
-  -->  
+<jsp:include page="header.jsp"/>
 
+<h4>Loan approved successfully. </h4>
+
+<a href="adminhome1.jsp">Go Back</a><br>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

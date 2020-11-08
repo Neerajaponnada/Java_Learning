@@ -1,16 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Loan - Rejected</title>
 </head>
 <body>
-	<!-- write the code to display the loan status information 
-	     received from usercontrollers' displaystatus method
-	-->
-
+<jsp:include page="header.jsp"/>
+<form action="rejectloan" method="post">
+<h4>Loan rejected. Updated. </h4>
+<button>OK</button>
+</form>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

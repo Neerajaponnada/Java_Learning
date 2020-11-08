@@ -1,14 +1,14 @@
-package com.iiht.evaluation.eloan.dao;
+package com.iiht.evaluation.eloan.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.iiht.evaluation.eloan.dao.ConnectionDao;
 import com.iiht.evaluation.eloan.exception.ELoanException;
 import com.iiht.evaluation.eloan.model.Attributes;
 import com.iiht.evaluation.eloan.model.User;
-import com.iiht.evaluation.eloan.service.IUserAuth;
 
 
 public class UserAuth implements IUserAuth{

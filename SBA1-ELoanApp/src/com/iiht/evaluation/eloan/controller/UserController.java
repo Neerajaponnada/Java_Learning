@@ -18,12 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.iiht.evaluation.eloan.dao.ConnectionDao;
-import com.iiht.evaluation.eloan.dao.UserAuth;
 import com.iiht.evaluation.eloan.exception.ELoanException;
 import com.iiht.evaluation.eloan.model.Attributes;
 import com.iiht.evaluation.eloan.model.LoanInfo;
 import com.iiht.evaluation.eloan.model.User;
 import com.iiht.evaluation.eloan.service.IUserAuth;
+import com.iiht.evaluation.eloan.service.UserAuth;
 
 
 
@@ -286,7 +286,12 @@ private ConnectionDao connDao;
 
 	private String editloan(HttpServletRequest request, HttpServletResponse response) throws ELoanException {
 	/* write a code to return to editloan page */
-		getLoanDetails();
+		LoanInfo inf = getLoanDetails();
+		if((inf.getStatus()).equalsIgnoreCase("Open")) {
+			System.out.println("Loan status : "+inf.getStatus());
+		} else {
+			throw new ELoanException("You cannot edit/update a processed loan.");
+		}
 		return "editloanui.jsp";
 	}
 

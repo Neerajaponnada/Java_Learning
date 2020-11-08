@@ -52,6 +52,8 @@
 			</tr>
 	</table>
 </form>
+<a href="userhome.jsp">Go Back</a><br>
+
 <jsp:include page="footer.jsp"/>
 </body>
 </html>

@@ -8,10 +8,11 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<h4>Welcome Admin !! </h4>
 <div align="right"><a href="index.jsp">Logout</a></div>
 <h4>Admin Dash Board</h4>
-<a href="admin?action=listall">List All</a><br>
-<a href="admin?action=process">Process Loan</a><br>
+<a href="listall">List All</a><br>
+<a href="process.jsp">Process Loan</a><br>
 <jsp:include page="footer.jsp"/>
 </body>
 </html>

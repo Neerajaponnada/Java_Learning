@@ -1,5 +1,7 @@
 package com.iiht.evaluation.eloan.model;
 
+import java.util.List;
+
 public class LoanInfo {
 	 private String applno;
 	 private String purpose;
@@ -8,6 +10,7 @@ public class LoanInfo {
 	 private String bstructure;
 	 private String bindicator;
 	 private String address;
+	 private String username;
 	 private int term;
 	 @Override
 	public String toString() {
@@ -23,9 +26,10 @@ public class LoanInfo {
 	 public LoanInfo() {
 		 
 	 }
-	 public LoanInfo(String applno, String purpose, int amtrequest, String doa, String bstructure, String bindicator,
+	 public LoanInfo(String applno, String purpose, int amtrequest, String username,String doa, String bstructure, String bindicator,
 			String address, String email, String mobile,String status, int term) {
 		super();
+		this.username = username;
 		this.applno = applno;
 		this.purpose = purpose;
 		this.amtrequest = amtrequest;
@@ -104,6 +108,16 @@ public class LoanInfo {
 	}
 	public void setTerm(int term) {
 		this.term = term;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public static List<LoanInfo> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

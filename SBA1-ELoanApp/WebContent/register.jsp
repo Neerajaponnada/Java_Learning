@@ -7,8 +7,7 @@
 
 <form action="registernewuser" method="POST"  >
 	<table border="0" cellspacing="0" cellpadding="0" width="40%" >
-			<tr><td><strong>User Name</strong
-			></td> 
+			<tr><td><strong>User Name</strong></td> 
 			<td><em><input type="text" name="userName" required /></em></td>
 			</tr>
 			<tr><td><strong>Date Of Birth</strong></td> 
