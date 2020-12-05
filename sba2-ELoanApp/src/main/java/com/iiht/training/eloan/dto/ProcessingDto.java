@@ -1,5 +1,6 @@
 package com.iiht.training.eloan.dto;
 
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -7,14 +8,13 @@ import javax.validation.constraints.Size;
 public class ProcessingDto {
 	
 	@NotNull(message="Acres of Land is mandatory")
-	@NotBlank(message="Acres of Land cannot be null")
-	@Size(min=1, message="Acres of Land must be greater than 0")
+	@DecimalMin(value="0.1", message="Acres of Land must be greater than 0")
 	private Double acresOfLand;
 	
 	@NotNull(message="Land Value is mandatory")
-	@NotBlank(message="Land Value cannot be null")
-	@Size(min=1, message="Land Value must be greater than 0")
+	@DecimalMin(value="0.1", message="Land Value must be greater than 0")
 	private Double landValue;
+	
 	private String appraisedBy;
 	private String valuationDate;
 	
@@ -24,9 +24,9 @@ public class ProcessingDto {
 	private String addressOfProperty;
 	
 	@NotNull(message="Suggested Loan Amount is mandatory")
-	@NotBlank(message="Suggested Loan Amount cannot be null")
-	@Size(min=1, message="Suggested Loan Amount must be greater than 0")
+	@DecimalMin(value="0.1", message="Suggested Loan Amount must be greater than 0")
 	private Double suggestedAmountOfLoan;
+	
 	public Double getAcresOfLand() {
 		return acresOfLand;
 	}

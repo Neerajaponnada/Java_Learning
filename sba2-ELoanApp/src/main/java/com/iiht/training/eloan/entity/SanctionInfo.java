@@ -16,6 +16,7 @@ public class SanctionInfo {
 	@Column(name="sanction_id")
 	private Long id;
 	
+	
 	@Column(name="loan_appl_id")
 	private Long loanAppId;
 	
@@ -36,6 +37,9 @@ public class SanctionInfo {
 	
 	@Column(name="monthly_paymnt")
 	private Double monthlyPayment;
+	
+	
+	
 	public Long getId() {
 		return id;
 	}

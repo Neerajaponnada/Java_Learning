@@ -9,7 +9,7 @@ public class TestELoanApp {
 	
 	public static void main(String[] args) {
 
-		UserDto u = new UserDto(1L,"abc","xyz","abc@xyz.com","9876543219");
+		UserDto u = new UserDto(1L,"abc","xyz","abc@xyz.com","9876543219","customer");
 
 		EntityManager em = JpaUtil.getEntityManager();
 		EntityTransaction txn = em.getTransaction();

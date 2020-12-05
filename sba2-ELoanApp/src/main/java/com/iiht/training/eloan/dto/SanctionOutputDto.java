@@ -6,19 +6,13 @@ import javax.validation.constraints.Size;
 
 public class SanctionOutputDto {
 	
-	@NotNull(message="Loan Amount Sanctioned is mandatory")
-	@NotBlank(message="Loan Amount Sanctioned cannot be null")
-	@Size(min=1, message="Loan Amount Sanctioned must be greater than 0")
 	private Double loanAmountSanctioned;
-	
-	@NotNull(message="Loan Term is mandatory")
-	@NotBlank(message="Loan Term cannot be null")
-	@Size(min=1, message="Loan Term must be greater than 0")
 	private Double termOfLoan;
-	
 	private String paymentStartDate;
 	private String loanClosureDate;
 	private Double monthlyPayment;
+	
+	
 	public Double getLoanAmountSanctioned() {
 		return loanAmountSanctioned;
 	}

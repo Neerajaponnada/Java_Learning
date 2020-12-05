@@ -30,19 +30,22 @@ public class UserDto {
 	@Size(min=10,max=10,message="Mobile Number must be 10 chars in length")
 	private String mobile;
 	
+	private String role;
+	
 	
 	
 	public UserDto(Long id,
 			String firstName,
 			String lastName,
 			String email,
-			String mobile) {
+			String mobile, String role) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.mobile = mobile;
+		this.role = role;
 	}
 
 
@@ -81,6 +84,16 @@ public class UserDto {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

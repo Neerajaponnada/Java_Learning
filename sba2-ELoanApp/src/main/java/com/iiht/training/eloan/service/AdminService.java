@@ -14,6 +14,7 @@ public interface AdminService {
 	public List<UserDto> getAllClerks();
 		
 	public List<UserDto> getAllManagers();
+
 	
 	
 }

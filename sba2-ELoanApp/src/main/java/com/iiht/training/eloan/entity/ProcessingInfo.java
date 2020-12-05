@@ -39,6 +39,7 @@ public class ProcessingInfo {
 	
 	@Column(name="suggested_loan_amt")
 	private Double suggestedAmountOfLoan;
+	
 	public Long getId() {
 		return id;
 	}

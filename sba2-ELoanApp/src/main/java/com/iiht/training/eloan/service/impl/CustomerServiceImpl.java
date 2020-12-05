@@ -75,12 +75,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<LoanOutputDto> getStatusAll(Long customerId) {
 		return loanRepository.findAllByCustomerId((customerId)).stream().map(e -> loanParse(e)).collect(Collectors.toList());
-		//return loanRepository.findAll(loanParse(customerId)).stream().map(e->loanParse(e)).collect(Collectors.toList());
 
-	}
-
-	private Long loanParse(Long customerId) {
-		return null;
 	}
 
 	public static UserDto userParse(Users source) {
@@ -90,6 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 		target.setLastName(source.getLastName());
 		target.setEmail(source.getEmail());
 		target.setMobile(source.getMobile());
+		target.setRole(source.getRole());
 		
 		return target;
 	}
@@ -104,7 +100,6 @@ public class CustomerServiceImpl implements CustomerService {
 		target.setRole("customer");
 		
 		return target;
-		
 	}
 	
 public static LoanOutputDto loanParse(Loan loanInf) {
