@@ -1,5 +1,7 @@
 package com.wellsfargo.batch7.group3.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,62 +11,75 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.exception.IBSException;
-import com.wellsfargo.batch7.group3.service.IAdminService;
-import com.wellsfargo.batch7.group3.service.ICustomerService;
+import com.wellsfargo.batch7.group3.service.impl.AdminServiceImpl;
 
 @Controller
+@RequestMapping
 public class AdminController  {
 
-//	@Autowired
-//	private ICustomerService customerService;
-	
-	@Autowired(required=false)
-	private IAdminService adminService;
-//	
-	@GetMapping({ "", "/", "/home" })
-	public String homeAction() {
-		System.out.println("Hello !! we are in index page now");
-		return "index.jsp";
-	}
+	@Autowired
+	private AdminServiceImpl adminSerImpl;
 	
 	@PostMapping("/register")
-	public ModelAndView registerAction(@ModelAttribute("register") @Valid KycDetailsDto user, BindingResult result) throws IBSException {
+	public ModelAndView registerAction(@ModelAttribute("register") @Valid KycDetailsDto newUser, BindingResult result) throws IBSException {
 		ModelAndView mv = null;
 		if (result.hasErrors()) {
-			System.out.println("Has errors");
-			System.out.println(result.getErrorCount());
+			System.out.println(result.getErrorCount()+" errors exist");
 			System.out.println(result.getAllErrors());
-			mv = new ModelAndView("registrationForm.jsp", "register", user);
+			mv = new ModelAndView("registrationForm.jsp", "register", newUser);
 		} else {
-			System.out.println("In else");
-			adminService.register(user);
+			adminSerImpl.register(newUser);
 			mv = new ModelAndView("redirect:/registrationSuccess.jsp");
+			mv.addObject("newUser", newUser );
 		}
-		
-
 		return mv;
 	}
-//	
-//	@PostMapping("/register")
-//	public ResponseEntity<KycDetailsDto> register(@RequestBody @Valid KycDetailsDto userInfo,BindingResult result) throws IBSException{
-//		if(result.hasErrors()) {
-//			throw new IBSException(from(result));
-//		}
-//		return new ResponseEntity<>(adminService.register(userInfo),HttpStatus.OK);
+	
+	@GetMapping(value = "/openRequests")
+	public ModelAndView newOpenAccounts() throws IBSException {
+		
+		ModelAndView mv = null;
+		List<KycDetailsDto> allOpenReq = adminSerImpl.getAllOpenReq();
+		mv = new ModelAndView("redirect:/adminAllOpenRequests.jsp");
+		mv.addObject("allOpenRequests", allOpenReq);
+		mv = new ModelAndView("/adminAllOpenRequests.jsp","allOpenRequests",allOpenReq);
+		return mv;
+	}
+
+	@GetMapping("/approve")
+	public ModelAndView approveAction(@RequestParam("regId") long regId) throws IBSException {
+		ModelAndView mv = null;
+		mv = new ModelAndView("/adminAllOpenRequests.jsp","allOpenRequests",adminSerImpl.approveAcct(regId));
+		String rejectAcct = "Reg Id " +regId + " is approved !!";
+		mv.addObject("approvalStatus", rejectAcct);
+		mv.addObject("allOpenRequests", adminSerImpl.getAllOpenReq());
+		return mv;
+	}
+	
+	@GetMapping("/reject")
+	public ModelAndView deleteAction(@RequestParam("regId") long regId) throws IBSException {
+		ModelAndView mv = null;
+		mv = new ModelAndView("adminAllOpenRequests.jsp","allOpenRequests",adminSerImpl.rejectAcct(regId));
+		String rejectAcct = "Reg Id " +regId + " is rejected !!";
+		mv.addObject("approvalStatus", rejectAcct);
+		mv.addObject("allOpenRequests", adminSerImpl.getAllOpenReq());
+		return mv;
+	}
+	
+//	@PostMapping("/getCustomerStatement")
+//	public ModelAndView registerAction(@ModelAttribute("register") @Valid KycDetailsDto newUser, BindingResult result) throws IBSException {
+//		
+//		return mv;
 //	}
-//
 //	
-//	public static String from(BindingResult result) {
-//		StringBuilder sb = new StringBuilder();
+//	@PostMapping("/checkTransactions")
+//	public ModelAndView registerAction(@ModelAttribute("register") @Valid KycDetailsDto newUser, BindingResult result) throws IBSException {
 //		
-//		for(ObjectError err : result.getAllErrors()) {
-//			sb.append(err.getDefaultMessage()+",");
-//		}
-//		
-//		return sb.toString();
-//	} 
+//		return mv;
+//	}
 }

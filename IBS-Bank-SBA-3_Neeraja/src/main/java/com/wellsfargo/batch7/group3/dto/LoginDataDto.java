@@ -3,42 +3,21 @@ package com.wellsfargo.batch7.group3.dto;
 public class LoginDataDto{
 	
 	private Integer loginSeqId;
-	private CustomerAccountDto custId;
-	private String loginType;
-	private String loginPwd; 
-	private String txnPwd;
-	private String securityQues;
-	private String securityAns;
-	private Integer loginid;
+	private String userName;
+	private String password; 
+	private String role;
 
 	public LoginDataDto() {
 		super();
 	}
 
 
-	public LoginDataDto(Integer loginSeqId, CustomerAccountDto custId, String loginType, String loginPwd, String txnPwd,
-			String securityQues, String securityAns, Integer loginid) {
-		super();
+	public LoginDataDto(Integer loginSeqId, String userName, String password, String role) {
 		this.loginSeqId = loginSeqId;
-		this.custId = custId;
-		this.loginType = loginType;
-		this.loginPwd = loginPwd;
-		this.txnPwd = txnPwd;
-		this.securityQues = securityQues;
-		this.securityAns = securityAns;
-		this.loginid = loginid;
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
 	}
-
-
-	public CustomerAccountDto getCustId() {
-		return custId;
-	}
-
-
-	public void setCustId(CustomerAccountDto custId) {
-		this.custId = custId;
-	}
-
 
 	public Integer getLoginSeqId() {
 		return loginSeqId;
@@ -48,54 +27,29 @@ public class LoginDataDto{
 		this.loginSeqId = loginSeqId;
 	}
 
-	public Integer getLoginid() {
-		return loginid;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setLoginid(Integer loginid) {
-		this.loginid = loginid;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getLoginType() {
-		return loginType;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setLoginType(String loginType) {
-		this.loginType = loginType;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getLoginPwd() {
-		return loginPwd;
+	public String getRole() {
+		return role;
 	}
 
-	public void setLoginPwd(String loginPwd) {
-		this.loginPwd = loginPwd;
+	public void setRole(String role) {
+		this.role = role;
 	}
-
-	public String getTxnPwd() {
-		return txnPwd;
-	}
-
-	public void setTxnPwd(String txnPwd) {
-		this.txnPwd = txnPwd;
-	}
-
-	public String getSecurityQues() {
-		return securityQues;
-	}
-
-	public void setSecurityQues(String securityQues) {
-		this.securityQues = securityQues;
-	}
-
-	public String getSecurityAns() {
-		return securityAns;
-	}
-
-	public void setSecurityAns(String securityAns) {
-		this.securityAns = securityAns;
-	}
-	
 	
 	
 		

@@ -1,6 +1,6 @@
 package com.wellsfargo.batch7.group3.entities;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,19 +15,22 @@ public class KycDetails{
 	@Id
 	@Column(name="REG_ID")
 	@GeneratedValue
-	private Integer regId;
+	private long regId;
 	
-	@Column(name="FIRST_NAME")
-	private String firstname; 
+	@Column(name="User_Name")
+	private String userName; 
 	
-	@Column(name="LAST_NAME")
-	private String lastname;
+	@Column(name="FULL_Name")
+	private String fullName;
 	
-	@Column(name="GENDER")
+	@Column(name="Password")
+	private String password;
+	
+	@Column(name="GENDER")    
 	private String Gender;
 
 	@Column(name="DOB")
-	private LocalDate dateOfBirth;
+	private Date dateOfBirth;
 	
 	@Column(name="EMAIL_ID")
 	private String emailId;
@@ -42,7 +45,7 @@ public class KycDetails{
 	private String city;
 	
 	@Column(name="PINCODE")
-	private Integer pinCode;
+	private int pinCode;
 	
 	@Column(name="TYPE_OF_ACCT_HOLDER")
 	private String typeOfAcctHolder;
@@ -54,13 +57,16 @@ public class KycDetails{
 	private String kycIdentityType; 
 	
 	@Column(name="KYC_UPLOAD_IND")
-	private char kycUploadInd; 
+	private String kycUploadInd; 
 	
 	@Column(name="ADMIN_COMMENTS_KYC")
 	private String adminCommentsKYC;
 	
 	@Column(name="KYC_APPROVAL_STATUS")
 	private String kycApprovalStatus;
+	
+	@Column(name="KYC_UPLOAD_DOC")
+	private String kycUploadDoc;
 
 	
 	
@@ -70,14 +76,15 @@ public class KycDetails{
 
 
 
-	public KycDetails(Integer regId, String firstname, String lastname, String gender, LocalDate dateOfBirth,
-			String emailId, String mobileNum, String address, String city, Integer pinCode, String typeOfAcctHolder,
-			String custAcctType, String kycIdentityType, char kycUploadInd, String adminCommentsKYC,
-			String kycApprovalStatus) {
+	public KycDetails(long regId, String userName, String fullName, String password, String gender, Date dateOfBirth,
+			String emailId, String mobileNum, String address, String city, int pinCode, String typeOfAcctHolder,
+			String custAcctType, String kycIdentityType, String kycUploadInd, String adminCommentsKYC,
+			String kycApprovalStatus, String kycUploadDoc) {
 		super();
 		this.regId = regId;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.userName = userName;
+		this.fullName = fullName;
+		this.password = password;
 		Gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.emailId = emailId;
@@ -91,42 +98,55 @@ public class KycDetails{
 		this.kycUploadInd = kycUploadInd;
 		this.adminCommentsKYC = adminCommentsKYC;
 		this.kycApprovalStatus = kycApprovalStatus;
+		this.kycUploadDoc = kycUploadDoc;
 	}
 
 
 
-	public Integer getRegId() {
+	public long getRegId() {
 		return regId;
 	}
 
 
 
-	public void setRegId(Integer regId) {
+	public void setRegId(long regId) {
 		this.regId = regId;
 	}
 
 
 
-	public String getFirstname() {
-		return firstname;
+	public String getUserName() {
+		return userName;
 	}
 
 
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
 
-	public String getLastname() {
-		return lastname;
+	public String getFullName() {
+		return fullName;
 	}
 
 
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -143,13 +163,13 @@ public class KycDetails{
 
 
 
-	public LocalDate getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 
 
-	public void setDateOfBirth(LocalDate dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -203,13 +223,13 @@ public class KycDetails{
 
 
 
-	public Integer getPinCode() {
+	public int getPinCode() {
 		return pinCode;
 	}
 
 
 
-	public void setPinCode(Integer pinCode) {
+	public void setPinCode(int pinCode) {
 		this.pinCode = pinCode;
 	}
 
@@ -251,13 +271,13 @@ public class KycDetails{
 
 
 
-	public char getKycUploadInd() {
+	public String getKycUploadInd() {
 		return kycUploadInd;
 	}
 
 
 
-	public void setKycUploadInd(char kycUploadInd) {
+	public void setKycUploadInd(String kycUploadInd) {
 		this.kycUploadInd = kycUploadInd;
 	}
 
@@ -284,7 +304,20 @@ public class KycDetails{
 	public void setKycApprovalStatus(String kycApprovalStatus) {
 		this.kycApprovalStatus = kycApprovalStatus;
 	}
+
+
+
+	public String getKycUploadDoc() {
+		return kycUploadDoc;
+	}
+
+
+
+	public void setKycUploadDoc(String kycUploadDoc) {
+		this.kycUploadDoc = kycUploadDoc;
+	}
+
 	
 	
 	
-}
+	}

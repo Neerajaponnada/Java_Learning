@@ -3,6 +3,7 @@ package com.wellsfargo.batch7.group3.service;
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
 import com.wellsfargo.batch7.group3.dto.CustomerTrasactionsDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
+import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.dto.ServiceProviderDto;
 import com.wellsfargo.batch7.group3.exception.IBSException;
 
@@ -15,6 +16,11 @@ public interface IAdminService {
 	
 	CustomerTrasactionsDto chkCustStatement(CustomerTrasactionsDto custAcct) throws IBSException;
 	CustomerTrasactionsDto fundDepositEntry(CustomerTrasactionsDto custAcct) throws IBSException;
+	
+	LoginDataDto adminLogin(LoginDataDto loginUser) throws IBSException;
+	
+	KycDetailsDto rejectAcct(long regId) throws IBSException;
+	KycDetailsDto approveAcct(long regId) throws IBSException;
 	
 	
 }

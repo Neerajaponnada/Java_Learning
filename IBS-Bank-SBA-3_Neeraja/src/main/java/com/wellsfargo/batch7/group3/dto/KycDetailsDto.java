@@ -1,27 +1,31 @@
 package com.wellsfargo.batch7.group3.dto;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class KycDetailsDto{
 
-	private Integer regId;
-	private String firstname; 
-	private String lastname;
+	private long regId;
+	private String userName; 
+	private String fullName;
+	private String password;
 	private String Gender;
-	private String dateOfBirth;
+	@DateTimeFormat(iso=ISO.DATE)
+	private Date dateOfBirth;
 	private String emailId;
 	private String mobileNum;
 	private String address;
 	private String city;
-	private Integer pinCode;
+	private int pinCode;
 	private String typeOfAcctHolder;
 	private String custAcctType; 
 	private String kycIdentityType; 
-//	@Column(name="KYC_PROOF_DOC")
-//	private  clob kycUploadDoc;
-	private char kycUploadInd; 
+	private String kycUploadDoc;
+	private String kycUploadInd; 
 	private String adminCommentsKYC;
-	private String kycApprovalSTatus;
+	private String kycApprovalStatus;
 
 	
 	
@@ -31,14 +35,15 @@ public class KycDetailsDto{
 
 
 
-	public KycDetailsDto(Integer regId, String firstname, String lastname, String gender, String dateOfBirth,
-			String emailId, String mobileNum, String address, String city, Integer pinCode, String typeOfAcctHolder,
-			String custAcctType, String kycIdentityType, char kycUploadInd, String adminCommentsKYC,
-			String kycApprovalSTatus) {
+	public KycDetailsDto(long regId, String userName, String fullName, String password, String gender,
+			Date dateOfBirth, String emailId, String mobileNum, String address, String city, int pinCode,
+			String typeOfAcctHolder, String custAcctType, String kycIdentityType, String kycUploadDoc,
+			String kycUploadInd, String adminCommentsKYC, String kycApprovalStatus) {
 		super();
 		this.regId = regId;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.userName = userName;
+		this.fullName = fullName;
+		this.password = password;
 		Gender = gender;
 		this.dateOfBirth = dateOfBirth;
 		this.emailId = emailId;
@@ -49,45 +54,58 @@ public class KycDetailsDto{
 		this.typeOfAcctHolder = typeOfAcctHolder;
 		this.custAcctType = custAcctType;
 		this.kycIdentityType = kycIdentityType;
+		this.kycUploadDoc = kycUploadDoc;
 		this.kycUploadInd = kycUploadInd;
 		this.adminCommentsKYC = adminCommentsKYC;
-		this.kycApprovalSTatus = kycApprovalSTatus;
+		this.kycApprovalStatus = kycApprovalStatus;
 	}
 
 
 
-	public Integer getRegId() {
+	public long getRegId() {
 		return regId;
 	}
 
 
 
-	public void setRegId(Integer regId) {
+	public void setRegId(long regId) {
 		this.regId = regId;
 	}
 
 
 
-	public String getFirstname() {
-		return firstname;
+	public String getUserName() {
+		return userName;
 	}
 
 
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
 
-	public String getLastname() {
-		return lastname;
+	public String getFullName() {
+		return fullName;
 	}
 
 
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -104,13 +122,13 @@ public class KycDetailsDto{
 
 
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -164,13 +182,13 @@ public class KycDetailsDto{
 
 
 
-	public Integer getPinCode() {
+	public int getPinCode() {
 		return pinCode;
 	}
 
 
 
-	public void setPinCode(Integer pinCode) {
+	public void setPinCode(int pinCode) {
 		this.pinCode = pinCode;
 	}
 
@@ -212,13 +230,25 @@ public class KycDetailsDto{
 
 
 
-	public char getKycUploadInd() {
+	public String getKycUploadDoc() {
+		return kycUploadDoc;
+	}
+
+
+
+	public void setKycUploadDoc(String kycUploadDoc) {
+		this.kycUploadDoc = kycUploadDoc;
+	}
+
+
+
+	public String getKycUploadInd() {
 		return kycUploadInd;
 	}
 
 
 
-	public void setKycUploadInd(char kycUploadInd) {
+	public void setKycUploadInd(String kycUploadInd) {
 		this.kycUploadInd = kycUploadInd;
 	}
 
@@ -236,16 +266,15 @@ public class KycDetailsDto{
 
 
 
-	public String getKycApprovalSTatus() {
-		return kycApprovalSTatus;
+	public String getKycApprovalStatus() {
+		return kycApprovalStatus;
 	}
 
 
 
-	public void setKycApprovalSTatus(String kycApprovalSTatus) {
-		this.kycApprovalSTatus = kycApprovalSTatus;
+	public void setKycApprovalStatus(String kycApprovalStatus) {
+		this.kycApprovalStatus = kycApprovalStatus;
 	}
-	
-	
+
 	
 }

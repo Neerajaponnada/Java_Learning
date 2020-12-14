@@ -1,86 +1,34 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 	<head>
-		<style>
-        body {
-            background-color: powderblue;
-        }
-       
-       
-       h1 {
-            color: red;
-            background-color: LightSeaGreen;
-            font-size: 5em;
-            text-align: center;
-            line-height: 60px;
-        }
-        
-        h2,
-        ul {
-            text-align: center;
-        }
-       
-        li {
-            list-style: none;
-            display: inline-block;
-            padding: 5px;
-            border: 1px solid black;
-        }
-       
-        form {
-            text-align: center;
-        }
-       
-        label {
-            margin-right: 5px;
-            width: 75px;
-            display: inline-block;
-        }
-       
-        .formInput {
-            margin: 10px;
-            font-size: 15px;
-        }
-        input{
-            margin: 5px;
-        }
-       
-        button {
-            margin: 20px;
-            width: 100px;
-        }
-       
-        a {
-            margin-right: 5px;
-        }
-       
-       footer {
-            background-color: LightSeaGreen;
-            font-size: 1em;
-            text-align: center;
-            line-height: 20px;
-        }
-        </style>-- 
-	
-	 	<title>User Login</title>
+		<link href ="${pageContext.request.contextPath}/resources/IBS-Styling.css" type ="text/css" rel ="stylesheet"></link>
+	 	<title>IBS Bank - Login</title>
 	</head>
 	<body>
 	<h1>IBS Bank - Login</h1>
 <jsp:include page="homeMenu.jsp"/>
-
-
 <h2>Welcome Back To IBS Bank</h2>
+
+<form:form action="/login" method="POST" modelAttribute="login" class="form">
 <table>
-		<tr><td><strong>Login ID&nbsp;&nbsp;</strong></td> 
-		<td><em><input type="number" name="uci" required /></em></td>
+		<tr><td><strong>Login ID&nbsp;</strong></td> 
+		<td><em><input type="text" name="userName" required /></em></td>
 		</tr>
-		<tr><td><strong>Password&nbsp;&nbsp;</strong></td> 
+		<tr><td><strong>Password&nbsp;</strong></td> 
 		<td><em><input type="password" name="password" required /></em></td>
 		</tr>
-		<tr><td align="center"><a href="accountSummary.jsp"><button>Submit</button></a></td> 
-		<td><em></em></td>
+		<tr><td><strong>Role&nbsp;</strong></td> 
+		<td><div class="role">
+        			<input type="radio" name="role" value="Customer" CHECKED/><label for="customer">Customer</label>
+        			<input type="radio" name="role" value="Admin" /><label for="Admin">Admin</label>
+      				</div></td>
+		</tr>
+		<tr>		<td></td>
+		<td align="center"><button>Submit</button></td> 
 		</tr>
 </table>
-
+</form:form>
 	 <p>
 		<footer style="text-align:center;">Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</footer>
 	 <p>

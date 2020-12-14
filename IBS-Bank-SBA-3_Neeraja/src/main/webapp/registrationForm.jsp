@@ -22,11 +22,14 @@
 
 <form:form action="/register" method="POST" modelAttribute="register" class="form">
 	<table>
-			<tr><td><strong>First Name</strong></td> 
-			<td><em><input type="text" name="firstName" required /></em></td>
+			<tr><td><strong>User Name</strong></td> 
+			<td><em><input type="text" name="userName" required /></em></td>
 			</tr>
-			<tr><td><strong>Last Name</strong></td> 
-			<td><em><input type="text" name="lastName" required /></em></td>
+			<tr><td><strong>Password</strong></td> 
+			<td><em><input type="password" name="password" required /></em></td>
+			</tr>
+			<tr><td><strong>Full Name</strong></td> 
+			<td><em><input type="text" name="fullName" required /></em></td>
 			</tr>
 			<tr><td><strong>Date Of Birth</strong></td> 
 			<td><em><input type="date" name="dateOfBirth" required /></em></td>
@@ -54,13 +57,13 @@
 			<td><em><input type="number" name="pinCode" required /></em></td>
 			</tr>
 			<tr><td><strong>Type of Account</strong></td> 
-				<td><div class="typeOfAcct">
-        			<input type="radio" onclick="typOfAcctChk();" value="Customer" name ="typOfAcct" id="customer"/><label for="typeOfAcct">Customer</label>
-        			<input type="radio" onclick="typOfAcctChk();" value="Service Provider"name ="typOfAcct" /><label for="typeOfAcct">ServiceProvider</label>
+				<td><div class="typeOfAcctHolder">
+        			<input type="radio" onclick="typOfAcctChk();" value="Customer" name ="typeOfAcctHolder" id="customer"/><label for="customer">Customer</label>
+        			<input type="radio" onclick="typOfAcctChk();" value="Service Provider"name ="typeOfAcctHolder" /><label for="serviceProvider">ServiceProvider</label>
       				</div>
 				</td>
 			</tr>
-			<tr  id="ifCustomer" style="display:none"><td width=200 height =30><strong>Customer Account Type</strong></td> 
+			<tr  id="ifCustomer" style="display:none"><td width =200 height=30><strong>Customer Account Type</strong></td> 
 				<td>
     				<div><input type="checkbox" name="custAcctType" value="Savings Account"><label for="savingsAcct">Savings</label></div>
     				<div><input type="checkbox" name="custAcctType" value="Fixed Deposit"><label for="fdAcct">Fixed Deposit</label></div>
@@ -68,15 +71,15 @@
   				</td>
 			</tr>
 			<tr><td><strong>KYC Upload Type</strong></td> 
-			<td><select name="kycUploadType">
-					<option></option>
-					<option>PAN Card</option>
-					<option>Aadhaar Card</option>
-					</select></td>
+				<td> <div class="kycIdentityType">
+        			<input type="radio" name="kycIdentityType" value="PAN Card" CHECKED/><label for="panCard">PAN Card</label>
+        			<input type="radio" name="kycIdentityType" value="Aadhaar Card" /><label for="aadhaarCard">Aadhaar Card</label>
+      				</div>
+      			</td>
 			</tr>
-			<!--  <tr><td><strong>Upload Proof</strong></td> 
-			<td><em><input type="file" name="KYCIdentityProof"  /></em></td>  
-			</tr>-->
+			<tr><td><strong>Upload Proof</strong></td> 
+			<td><em><input type="file" name="kycUploadDoc"/></em></td>
+			</tr>
 			<tr><td><button>Submit</button></td> 
 			<td><em></em></td>
 			</tr>

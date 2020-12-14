@@ -1,71 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
-
-	<style>
-        body {
-            background-color: powderblue;
-        }
-       
-        h1 {
-            color: red;
-            background-color: LightSeaGreen;
-            font-size: 5em;
-            text-align: center;
-            line-height: 60px;
-        }
-        
-        h2,
-        ul {
-            text-align: center;
-        }
-       
-        li {
-            list-style: none;
-            display: inline-block;
-            padding: 5px;
-            border: 1px solid black;
-        }
-       
-        form {
-            text-align: center;
-        }
-       
-        label {
-            margin-right: 5px;
-            width: 75px;
-            display: inline-block;
-        }
-       
-        .formInput {
-            margin: 10px;
-            font-size: 15px;
-        }
-        input{
-            margin: 5px;
-        }
-       
-        button {
-            margin: 5px;
-            width: 82px;
-        }
-       
-        a {
-            margin-right: 5px;
-        }
-       
-        footer {
-            background-color: LightSeaGreen;
-            font-size: 1em;
-            text-align: center;
-            line-height: 20px;
-        }
-        </style>-- 
     <head>
         <title>IBS Bank-Account Summary</title>
+   	 		<link href ="${pageContext.request.contextPath}/resources/IBS-Styling.css" type ="text/css" rel ="stylesheet"></link>
     </head>
    <body>
 	<h1>IBS Bank</h1>
-        
         <form name="acctSummary" >
             <table border="0" cellspacing="0" cellpadding="0" >
                 <tr><td>

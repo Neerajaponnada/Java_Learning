@@ -4,8 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,42 +15,25 @@ public class LoginInfo{
 	@GeneratedValue
 	private Integer loginSeqId;
 	
-	@OneToOne
-	@JoinColumn(name="UCI")
-	private CustomerAccount custId;
+	@Column(name="USER_NAME")
+	private String userName;
 	
-	@Column(name="LOGIN_TYPE")
-	private String loginType;
+	@Column(name="PASSWORD")
+	private String password; 
 	
-	@Column(name="LOGIN_PWD")
-	private String loginPwd; 
-	
-	@Column(name="TXN_PWD")
-	private String txnPwd;
-
-	@Column(name="SECURITY_QUES1")
-	private String securityQues;
-	
-	@Column(name="SECURITY_ANS1")
-	private String securityAns;
-
-	private Integer loginid;
+	@Column(name="ROLE")
+	private String role;
 
 	public LoginInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public LoginInfo(Integer loginSeqId, Integer loginid, String loginType, String loginPwd, String txnPwd,
-			String securityQues, String securityAns) {
+	public LoginInfo(Integer loginSeqId, String userName, String password, String role) {
 		super();
 		this.loginSeqId = loginSeqId;
-		this.loginid = loginid;
-		this.loginType = loginType;
-		this.loginPwd = loginPwd;
-		this.txnPwd = txnPwd;
-		this.securityQues = securityQues;
-		this.securityAns = securityAns;
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
 	}
 
 	public Integer getLoginSeqId() {
@@ -63,55 +44,30 @@ public class LoginInfo{
 		this.loginSeqId = loginSeqId;
 	}
 
-	public Integer getLoginid() {
-		return loginid;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setLoginid(Integer loginid) {
-		this.loginid = loginid;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getLoginType() {
-		return loginType;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setLoginType(String loginType) {
-		this.loginType = loginType;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getLoginPwd() {
-		return loginPwd;
+	public String getRole() {
+		return role;
 	}
 
-	public void setLoginPwd(String loginPwd) {
-		this.loginPwd = loginPwd;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public String getTxnPwd() {
-		return txnPwd;
-	}
 
-	public void setTxnPwd(String txnPwd) {
-		this.txnPwd = txnPwd;
-	}
-
-	public String getSecurityQues() {
-		return securityQues;
-	}
-
-	public void setSecurityQues(String securityQues) {
-		this.securityQues = securityQues;
-	}
-
-	public String getSecurityAns() {
-		return securityAns;
-	}
-
-	public void setSecurityAns(String securityAns) {
-		this.securityAns = securityAns;
-	}
 	
-	
-	
-		
 }

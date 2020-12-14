@@ -1,15 +1,15 @@
 package com.wellsfargo.batch7.group3.service;
 
+import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.entities.CustomerAccount;
 import com.wellsfargo.batch7.group3.entities.CustomerBeneficiary;
 import com.wellsfargo.batch7.group3.entities.CustomerTrasactionsInfo;
-import com.wellsfargo.batch7.group3.entities.LoginInfo;
 import com.wellsfargo.batch7.group3.entities.ServiceProvider;
 import com.wellsfargo.batch7.group3.exception.IBSException;
 
 public interface ICustomerService {
 
-	LoginInfo custLogin(LoginInfo custAcct) throws IBSException;
+	LoginDataDto userLogin(LoginDataDto custAcct) throws IBSException;
 	
 	CustomerAccount checkBalance(CustomerAccount custAcct) throws IBSException;
 	

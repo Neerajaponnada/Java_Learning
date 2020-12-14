@@ -1,14 +1,6 @@
 <html>
 <head>
-<style>
-
- a {
-      margin-right: 10px;
-      font-size: 20px;
-      color: Gold;
-      background-color: Teal;
-   }
-</style> 
+	<link href ="${pageContext.request.contextPath}/resources/IBS-Styling.css" type ="text/css" rel ="stylesheet"></link>
 </head>       
 
 
@@ -19,8 +11,6 @@
 	<a href="registrationForm.jsp">New User Registration</a>
 	<span> | </span>
 	<a href="loginPage.jsp">User Login</a>
-	<span> | </span>
-	<a href="employeeLogin.jsp">Employee Login</a>
 	<span> | </span>
 	<a href="aboutUs.jsp">About Us</a>
 	<hr/>
