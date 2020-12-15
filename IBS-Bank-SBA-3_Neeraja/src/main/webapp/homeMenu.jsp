@@ -10,7 +10,7 @@
 	<span> | </span>
 	<a href="registrationForm.jsp">New User Registration</a>
 	<span> | </span>
-	<a href="loginPage.jsp">User Login</a>
+	<a href="loginPage.jsp">Login</a>
 	<span> | </span>
 	<a href="aboutUs.jsp">About Us</a>
 	<hr/>

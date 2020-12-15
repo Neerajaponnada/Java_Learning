@@ -15,14 +15,13 @@ public class CustomerBeneficiary{
 	@Id
 	@Column(name="BNFCRY_ID")
 	@GeneratedValue
-	private Integer bnfcryId;
+	private long bnfcryId;
 	
-	@ManyToOne
-	@JoinColumn(name="CUST_ACCT_NUM")
-	private CustomerAccount custAcctInfo;
+	@Column(name="CUST_ACCT_NUM")
+	private long custAcctNum;
 	
 	@Column(name="BNFCRY_ACCT_NUM")
-	private Integer bnfcryAcctNum;
+	private long bnfcryAcctNum;
 	
 	@Column(name="BNFCRY_ACCT_NAME")
 	private String bnfcryAcctName; 
@@ -43,12 +42,12 @@ public class CustomerBeneficiary{
 		super();
 	}
 
-	public CustomerBeneficiary(Integer bnfcryId, CustomerAccount custAcctInfo, Integer bnfcryAcctNum,
+	public CustomerBeneficiary(long bnfcryId, long custAcctNum, long bnfcryAcctNum,
 			String bnfcryAcctName, String bnfcryBankName, String bnfcryBankIfsc, String bnfcryTxnType,
 			String bnfcryMblNum) {
 		super();
 		this.bnfcryId = bnfcryId;
-		this.custAcctInfo = custAcctInfo;
+		this.custAcctNum = custAcctNum;
 		this.bnfcryAcctNum = bnfcryAcctNum;
 		this.bnfcryAcctName = bnfcryAcctName;
 		this.bnfcryBankName = bnfcryBankName;
@@ -57,27 +56,27 @@ public class CustomerBeneficiary{
 		this.bnfcryMblNum = bnfcryMblNum;
 	}
 
-	public Integer getBnfcryId() {
+	public long getCustAcctNum() {
+		return custAcctNum;
+	}
+
+	public void setCustAcctNum(long custAcctNum) {
+		this.custAcctNum = custAcctNum;
+	}
+
+	public long getBnfcryId() {
 		return bnfcryId;
 	}
 
-	public void setBnfcryId(Integer bnfcryId) {
+	public void setBnfcryId(long bnfcryId) {
 		this.bnfcryId = bnfcryId;
 	}
 
-	public CustomerAccount getCustAcctInfo() {
-		return custAcctInfo;
-	}
-
-	public void setCustAcctInfo(CustomerAccount custAcctInfo) {
-		this.custAcctInfo = custAcctInfo;
-	}
-
-	public Integer getBnfcryAcctNum() {
+	public long getBnfcryAcctNum() {
 		return bnfcryAcctNum;
 	}
 
-	public void setBnfcryAcctNum(Integer bnfcryAcctNum) {
+	public void setBnfcryAcctNum(long bnfcryAcctNum) {
 		this.bnfcryAcctNum = bnfcryAcctNum;
 	}
 
@@ -122,6 +121,8 @@ public class CustomerBeneficiary{
 	}
 
 		
+	
+	
 	
 	
 }

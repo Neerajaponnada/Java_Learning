@@ -13,7 +13,7 @@
 	<body>
 	<h1>IBS Bank - Admin Home</h1>
 <hr/>
-	<h5 align="right"> Welcome ${loginUser.getUserName}</h5>
+	<h5 align="right"> Welcome Admin</h5>
 	<div><a href="/openRequests">Get Open Requests</a></div>
 	<div><a href="/getCustomerStatement">Get Customer Statement</a></div>
 	<div><a href="/checkTransactions">Check Transactions</a></div>
@@ -30,24 +30,23 @@
 				<c:otherwise>
 					<table class="table table-bordered table-striped">
 						<thead>
-							<tr>
+							<tr align="center" bgcolor="#E3E4FA" valign="top">
 								<th>Reg Id</th>
 							<th>User Name</th>
 							<th>Mobile Num</th>
 							<th>Type Of Account</th>
 							<th>Customer Accounts</th>
-							<th colspan="2"></th>
+							<th colspan="2">Admin Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="c" items="${allOpenRequests }">
-								<tr>
+								<tr bgcolor="#FAF8CC">
 									<td>${c.regId }</td>
 									<td>${c.userName }</td>
 									<td>${c.mobileNum}</td>
 									<td>${c.typeOfAcctHolder}</td>
 									<td>${c.custAcctType }</td>
-									</td>
 									<td>
 										<a href="/approve?regId=${c.regId }" class="btn btn-sm btn-danger">
 											Approve

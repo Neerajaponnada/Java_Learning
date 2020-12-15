@@ -1,5 +1,10 @@
 package com.wellsfargo.batch7.group3.service;
 
+import java.util.List;
+
+import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
+import com.wellsfargo.batch7.group3.dto.CustomerBeneficiaryDto;
+import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.entities.CustomerAccount;
 import com.wellsfargo.batch7.group3.entities.CustomerBeneficiary;
@@ -11,15 +16,9 @@ public interface ICustomerService {
 
 	LoginDataDto userLogin(LoginDataDto custAcct) throws IBSException;
 	
-	CustomerAccount checkBalance(CustomerAccount custAcct) throws IBSException;
-	
-	CustomerBeneficiary addBeneficiary(CustomerBeneficiary custAcct) throws IBSException;
-	CustomerBeneficiary updateBeneficiary(CustomerBeneficiary custAcct) throws IBSException;
-	
-	CustomerTrasactionsInfo transferFunds(CustomerTrasactionsInfo custAcct) throws IBSException;
-	CustomerTrasactionsInfo viewStatement(CustomerTrasactionsInfo custAcct) throws IBSException;
-	
-	ServiceProvider payUtilBills(ServiceProvider custAcct) throws IBSException;
+	List<CustomerAccountDto> getCustomerData(String userName);
+
+	CustomerBeneficiaryDto addBeneficiary(CustomerBeneficiaryDto custBnfcryAcct, String userName) throws IBSException;
 	
 	
 }

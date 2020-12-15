@@ -17,7 +17,7 @@ public class CustomerTrasactionsInfo{
 	@Id
 	@Column(name="TXN_ID")
 	@GeneratedValue
-	private Integer txnId;
+	private long txnId;
 	
 	@ManyToOne
 	@JoinColumn(name="CUST_ACCT_NUM")
@@ -30,10 +30,10 @@ public class CustomerTrasactionsInfo{
 	private String txnType;
 	
 	@Column(name="FROM_ACCT_NUM")
-	private Integer fromAcctNum; 
+	private long fromAcctNum; 
 	
 	@Column(name="TO_ACCT_NUM")
-	private Integer toAcctNum;
+	private long toAcctNum;
 	
 	@Column(name="TXN_AMT")
 	private double txnAmt;
@@ -49,8 +49,8 @@ public class CustomerTrasactionsInfo{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerTrasactionsInfo(Integer txnId, CustomerAccount custAcctInfo, String custAcctType, String txnType,
-			Integer fromAcctNum, Integer toAcctNum, Float txnAmt, LocalDate txnDateTime, String txnCmnts) {
+	public CustomerTrasactionsInfo(long txnId, CustomerAccount custAcctInfo, String custAcctType, String txnType,
+			long fromAcctNum, long toAcctNum, Float txnAmt, LocalDate txnDateTime, String txnCmnts) {
 		super();
 		this.txnId = txnId;
 		this.custAcctInfo = custAcctInfo;
@@ -63,11 +63,11 @@ public class CustomerTrasactionsInfo{
 		this.txnCmnts = txnCmnts;
 	}
 
-	public Integer getTxnId() {
+	public long getTxnId() {
 		return txnId;
 	}
 
-	public void setTxnId(Integer txnId) {
+	public void setTxnId(long txnId) {
 		this.txnId = txnId;
 	}
 
@@ -95,19 +95,19 @@ public class CustomerTrasactionsInfo{
 		this.txnType = txnType;
 	}
 
-	public Integer getFromAcctNum() {
+	public long getFromAcctNum() {
 		return fromAcctNum;
 	}
 
-	public void setFromAcctNum(Integer fromAcctNum) {
+	public void setFromAcctNum(long fromAcctNum) {
 		this.fromAcctNum = fromAcctNum;
 	}
 
-	public Integer getToAcctNum() {
+	public long getToAcctNum() {
 		return toAcctNum;
 	}
 
-	public void setToAcctNum(Integer toAcctNum) {
+	public void setToAcctNum(long toAcctNum) {
 		this.toAcctNum = toAcctNum;
 	}
 

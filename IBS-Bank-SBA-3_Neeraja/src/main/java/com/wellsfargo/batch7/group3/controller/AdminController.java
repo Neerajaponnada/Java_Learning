@@ -62,7 +62,7 @@ public class AdminController  {
 	}
 	
 	@GetMapping("/reject")
-	public ModelAndView deleteAction(@RequestParam("regId") long regId) throws IBSException {
+	public ModelAndView rejectAction(@RequestParam("regId") long regId) throws IBSException {
 		ModelAndView mv = null;
 		mv = new ModelAndView("adminAllOpenRequests.jsp","allOpenRequests",adminSerImpl.rejectAcct(regId));
 		String rejectAcct = "Reg Id " +regId + " is rejected !!";

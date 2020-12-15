@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
@@ -6,17 +8,16 @@
     </head>
    <body>
 	<h1>IBS Bank</h1>
-        <form name="acctSummary" >
             <table border="0" cellspacing="0" cellpadding="0" >
                 <tr><td>
                 	<table border="0.5" >
                             <tr bgcolor="#FFF0FF">
-                                <th align="center"><a href="accountSummary.jsp">Account Summary&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="fundsTransfer.jsp">Funds Transfer&nbsp;&nbsp;</a></th>
+                                <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary</a></th>
+                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
                                 <th align="center"><a href="fixedDeposit.jsp">Fixed Deposit&nbsp;&nbsp;</a></th>
                                 <th><a href="recurringDeposit.jsp">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
                             <tr>
-                            <tr align="right"><p>Welcome User !! </p></tr>
+                            <tr align="right"><p>Welcome ${userName} !! </p></tr>
                         </table>
                     </td>
                 </tr>
@@ -25,30 +26,37 @@
                 <tr>
                     <td bgcolor="#E3E4FA" height="410" width="24%" valign="top">
                         <br><strong>Services</strong><br>
-                        <a href="accountSummary.jsp">Account Summary<br></a>
-                        <a href="fundsTransfer.jsp">Funds Transfer<br></a>
+                        <a href="/acctSummary?userName=${userName}">Account Summary<br></a>
+                        <a href="/fundsTransferHome?userName=${userName}">Funds Transfer<br></a>
                         <a href="accountStatement">Account Statement <br></a><br><br>
                         <a href="changePassword.jsp">Change Password<br></a>
                         <a href="index.jsp">Log out</a>
                         <br>
                         <br>
                     </td>
-                    <td width="8000" height="100" bgcolor="#FAF8CC">
+                    <td  width="1100" height="80" bgcolor="#FAF8CC">
                         <font color="brown"><h2>Account Summary</h2></font>
                         <h3>Savings Account</h3>
-                        <table border="1" >
-                            <tr bgcolor="#98AFC7">
-                                <th align="center">Account no</th>
-                                <th align="center">Branch</th>
-                                <th>Name</th>
-                                <th>Currency</th>
-                            	<th>Available Balance</th></tr>
-                            <tr><td>9999999999</td>
-                            	<td>Hyderabad</td>
-                            	<td>Tom Cruise</td>
-                                <td>INR</td>
-                                <td>2,10,678</td></tr>
-                        </table>
+                       <table class="table table-bordered table-striped">
+						<thead>
+							<tr align="center" bgcolor="#E3E4FA" valign="top">
+							<th>Account Number</th>
+							<th>Customer Name</th>
+							<th>Branch Name</th>
+							<th>Account Balance</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="c" items="${customerInfo }">
+								<tr bgcolor="#FAF8CC">
+									<td>${c.custAcctNum }</td>
+									<td>${c.custName }</td>
+									<td>${c.branchName}</td>
+									<td>${c.availableBalance}</td>
+								</tr>
+							</c:forEach>
+						</tbody>					
+					</table>
                     </td>
                 </tr>
             </table>
@@ -67,6 +75,5 @@
                     </td>
                 </tr>
             </table>
-        </form>
     </body>
 </html>

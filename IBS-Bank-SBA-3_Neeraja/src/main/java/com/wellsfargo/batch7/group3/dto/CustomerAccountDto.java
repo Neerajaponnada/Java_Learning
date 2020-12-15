@@ -3,10 +3,11 @@ package com.wellsfargo.batch7.group3.dto;
 import java.time.LocalDate;
 public class CustomerAccountDto{
 	
-	private Integer uci;
-	private KycDetailsDto custRegstrId;
-	private Integer custAcctNum;
+	private long uci;
+	private long regId;
+	private long custAcctNum;
 	private String custName; 
+	private String userName; 
 	private String custAcctType;
 	private double availableBalance;
 	private LocalDate acctStartDate;
@@ -21,14 +22,15 @@ public class CustomerAccountDto{
 		super();
 	}
 
-	public CustomerAccountDto(Integer uci, KycDetailsDto regstrId, Integer custAcctNum, String custName, String custAcctType,
+	public CustomerAccountDto(long uci, long regId, long custAcctNum, String custName, String userName, String custAcctType,
 			double availableBalance, LocalDate acctStartDate, LocalDate acctCloseDate, String branchName,
 			String branchIFSC, double interestRate, String tenure, String custAcctStatus) {
 		super();
 		this.uci = uci;
-		this.custRegstrId = regstrId;
+		this.regId = regId;
 		this.custAcctNum = custAcctNum;
 		this.custName = custName;
+		this.userName = userName;
 		this.custAcctType = custAcctType;
 		this.availableBalance = availableBalance;
 		this.acctStartDate = acctStartDate;
@@ -40,27 +42,38 @@ public class CustomerAccountDto{
 		this.custAcctStatus = custAcctStatus;
 	}
 
-	public Integer getUci() {
+	
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public long getUci() {
 		return uci;
 	}
 
-	public void setUci(Integer uci) {
+	public void setUci(long uci) {
 		this.uci = uci;
 	}
 
-	public KycDetailsDto getRegstrId() {
-		return custRegstrId;
+
+	public long getRegId() {
+		return regId;
 	}
 
-	public void setRegstrId(KycDetailsDto regstrId) {
-		this.custRegstrId = regstrId;
+	public void setRegId(long regId) {
+		this.regId = regId;
 	}
 
-	public Integer getCustAcctNum() {
+	public long getCustAcctNum() {
 		return custAcctNum;
 	}
 
-	public void setCustAcctNum(Integer custAcctNum) {
+	public void setCustAcctNum(long custAcctNum) {
 		this.custAcctNum = custAcctNum;
 	}
 

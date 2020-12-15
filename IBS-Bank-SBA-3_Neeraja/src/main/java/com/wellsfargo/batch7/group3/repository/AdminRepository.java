@@ -14,7 +14,7 @@ public interface AdminRepository extends JpaRepository<KycDetails, Long>{
 
 	boolean existsByUserName(String userName);
 
-	List<KycDetails> findAllByKycApprovalStatus(String string);
+	List<KycDetails> findAllByKycApprovalStatus(String status);
 
 
 }

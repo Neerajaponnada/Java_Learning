@@ -1,5 +1,7 @@
 package com.wellsfargo.batch7.group3.service.impl;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import com.wellsfargo.batch7.group3.dto.CustomerTrasactionsDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.dto.ServiceProviderDto;
+import com.wellsfargo.batch7.group3.entities.CustomerAccount;
 import com.wellsfargo.batch7.group3.entities.KycDetails;
 import com.wellsfargo.batch7.group3.entities.LoginInfo;
 import com.wellsfargo.batch7.group3.exception.IBSException;
@@ -69,7 +72,7 @@ public class AdminServiceImpl implements IAdminService {
 	public LoginDataDto adminLogin(@Valid LoginDataDto loginUser) throws IBSException {
 		
 		LoginDataDto loginInf = new LoginDataDto();
-		if((loginRepo.existsByUserName(loginUser.getUserName()))) {
+		if((loginRepo.existsByUserName(loginUser.getUserName())) && (loginUser.getRole().equalsIgnoreCase("admin"))) {
 			loginInf = getLoginData(loginUser.getUserName());
 			if((loginInf.getUserName().equalsIgnoreCase(loginUser.getUserName())) && (loginInf.getPassword().equalsIgnoreCase(loginUser.getPassword()))) {
 				System.out.println("user name password match");
@@ -84,7 +87,6 @@ public class AdminServiceImpl implements IAdminService {
 	
 	
 	private LoginDataDto getLoginData(String userName) {
-		System.out.println(" in getLoginData loop");
 		LoginDataDto loginObj = new LoginDataDto();
 
 		loginObj.setUserName(loginRepo.findByUserName(userName).getUserName());
@@ -124,7 +126,6 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	public static KycDetailsDto kycParse(KycDetails source) {
-		//System.out.println("Outer kyc Parse - 1");
 		KycDetailsDto target = new KycDetailsDto();
 		target.setUserName(source.getUserName());
 		target.setFullName(source.getFullName());
@@ -145,7 +146,6 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 	public static KycDetails kycParse(KycDetailsDto source) {
-		//System.out.println("Inner kyc Parse - - 1");
 		KycDetails target = new KycDetails();
 		target.setUserName(source.getUserName());
 		target.setFullName(source.getFullName());
@@ -174,19 +174,6 @@ public class AdminServiceImpl implements IAdminService {
 		return target;
 	}
 
-//	public List<KycDetailsDto> getAllOpenReq() {
-//		List<KycDetails> openReqObj = null;
-//		openReqObj = adminRepo.findAll();
-//		System.out.println(adminRepo.findAll().get(0).getUserName());
-//		System.out.println(adminRepo.findAll().get(1).getUserName());
-//
-//		List<KycDetailsDto> openReqList = null;
-//		openReqList = adminRepo.findAll().stream().map(e -> openReqParse(e)).collect(Collectors.toList());
-//		
-//		//loanRepository.findAll().stream().map(e -> loanParse(e)).collect(Collectors.toList());
-//		
-//		return openReqList;
-//	}
 	
 	public List<KycDetailsDto> getAllOpenReq() {
 		List<KycDetailsDto> obj1 = adminRepo.findAllByKycApprovalStatus("Open").stream().map(e -> openReqParse(e)).collect(Collectors.toList());
@@ -212,9 +199,81 @@ public class AdminServiceImpl implements IAdminService {
 		acctObj.setAdminCommentsKYC("Account approved by Admin");
 		acctObj.setKycApprovalStatus("Approved");
 		
-		return rejectParse(adminRepo.save(acctObj));
+        List<String> acctTypeList = Arrays.asList(acctObj.getCustAcctType().split(","));
+	        
+	        for (int i = 0; i < acctTypeList.size(); i++) {
+	        	if(acctTypeList.get(i).equalsIgnoreCase("Savings Account")) {
+	        		customerRepo.save(createSavingsAcct(acctObj));
+	        	} else if (acctTypeList.get(i).equalsIgnoreCase("Fixed Deposit")) {
+	        		customerRepo.save(createFixedDepositAcct(acctObj));
+	        	} else if (acctTypeList.get(i).equalsIgnoreCase("Recurring Deposit")) {
+	        		customerRepo.save(createRecurringDepositAcct(acctObj));
+	        	}
+	        }
+		return null;
 	}
 	
+	private CustomerAccount createFixedDepositAcct(KycDetails source) {
+		CustomerAccount newFDAcct = new CustomerAccount();
+		LocalDate date = LocalDate.now();
+		newFDAcct.setAvailableBalance(500000);
+		newFDAcct.setAcctStartDate(LocalDate.now());
+		newFDAcct.setAcctCloseDate(date.plusYears(2));
+		newFDAcct.setBranchIFSC("IBS00012345");
+		newFDAcct.setBranchName("Hyderabad");
+		newFDAcct.setCustName(source.getFullName());
+		newFDAcct.setRegId(source.getRegId());
+		newFDAcct.setCustAcctNum(Long.parseLong(source.getRegId() + "102"));
+		newFDAcct.setCustAcctStatus("Active");
+		newFDAcct.setCustAcctType("Fixed Deposit Account");
+		newFDAcct.setInterestRate(5.5);
+		newFDAcct.setTenure("2 years");
+		newFDAcct.setUserName(source.getUserName());
+		
+		return newFDAcct;
+	}
+
+	private CustomerAccount createRecurringDepositAcct(KycDetails source) {
+		CustomerAccount newRDAcct = new CustomerAccount();
+		LocalDate date = LocalDate.now();
+		newRDAcct.setAvailableBalance(200000);
+		newRDAcct.setAcctStartDate(LocalDate.now());
+		newRDAcct.setAcctCloseDate(date.plusYears(2));
+		newRDAcct.setBranchIFSC("IBS00012345");
+		newRDAcct.setBranchName("Hyderabad");
+		newRDAcct.setCustName(source.getFullName());
+		newRDAcct.setRegId(source.getRegId());
+		newRDAcct.setCustAcctNum(Long.parseLong(source.getRegId() + "103"));
+		newRDAcct.setCustAcctStatus("Active");
+		newRDAcct.setCustAcctType("Recurring Deposit Account");
+		newRDAcct.setInterestRate(5.1);
+		newRDAcct.setTenure("2 years");
+		newRDAcct.setUserName(source.getUserName());
+		
+		return newRDAcct;
+	}
+
+	private CustomerAccount createSavingsAcct(KycDetails source) {
+		
+		CustomerAccount newSvngAcct = new CustomerAccount();
+		newSvngAcct.setAvailableBalance(434343.59);
+		newSvngAcct.setAcctStartDate(LocalDate.now());
+		newSvngAcct.setAcctCloseDate(LocalDate.of(2500,01,01));
+		newSvngAcct.setBranchIFSC("IBS00012345");
+		newSvngAcct.setBranchName("Hyderabad");
+		newSvngAcct.setCustName(source.getFullName());
+		newSvngAcct.setRegId(source.getRegId());
+		newSvngAcct.setCustAcctNum(Long.parseLong(source.getRegId() + "101"));
+		newSvngAcct.setCustAcctStatus("Active");
+		newSvngAcct.setCustAcctType("Savings Account");
+		newSvngAcct.setInterestRate(4.0);
+		newSvngAcct.setTenure("100 years");
+		newSvngAcct.setUserName(source.getUserName());
+		
+		return newSvngAcct;
+
+	}
+
 	@Modifying
 	@Override
 	public KycDetailsDto rejectAcct(long regId) {
@@ -230,7 +289,7 @@ public class AdminServiceImpl implements IAdminService {
 	}
 	
 
-	private KycDetailsDto rejectParse(KycDetails save) {
+	private KycDetailsDto rejectParse(KycDetails reject) {
 		KycDetailsDto kycReject = new KycDetailsDto();
 		kycReject.setAdminCommentsKYC("Account rejected by Admin");
 		kycReject.setKycApprovalStatus("Rejected");

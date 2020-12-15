@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
+import com.wellsfargo.batch7.group3.dto.CustomerBeneficiaryDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.exception.IBSException;
@@ -40,7 +43,10 @@ public class CustomerController {
 	
 	@PostMapping("/login")
 	public ModelAndView loginAction(@ModelAttribute("login") @Valid LoginDataDto loginUser, BindingResult result) throws IBSException {
+
 		ModelAndView mv = null;
+		
+		List<CustomerAccountDto> custData = null;
 		
 		System.out.println(loginUser.getUserName()+" , "+loginUser.getPassword()+" , "+loginUser.getRole());
 		if (result.hasErrors()) {
@@ -50,13 +56,65 @@ public class CustomerController {
 				System.out.println("In admin");
 				adminSerImpl.adminLogin(loginUser);
 				mv = new ModelAndView("redirect:/adminHome.jsp");
+				
 			} else {
 				System.out.println("In customer");
 				customerImpl.userLogin(loginUser);
-				mv = new ModelAndView("redirect:/accountSummary.jsp");
+				custData = customerImpl.getCustomerData(loginUser.getUserName());
+				mv = new ModelAndView("accountSummary.jsp", "customerInfo", custData);
 			}
 			mv.addObject("loginUser", loginUser);
+			mv.addObject("userName", loginUser.getUserName());
 		}
+		String userName = loginUser.getUserName();
+		 // session.setAttribute("userName", userName);
+		return mv;
+	}
+	
+	@GetMapping("/acctSummary")
+	public ModelAndView acctSummaryAction(@RequestParam("userName") @Valid String userName) throws IBSException {
+		ModelAndView mv = null;
+		mv = new ModelAndView("accountSummary.jsp", "customerInfo", customerImpl.getCustomerData(userName));
+		mv.addObject("userName", userName);
+		return mv;
+	}
+	
+	@GetMapping("/addBnfPage")
+	public ModelAndView addBnfPage(@RequestParam("userName") String userName) throws IBSException {
+		ModelAndView mv = null;
+		System.out.println("in addBnfPage - " +userName);
+		mv = new ModelAndView("addBeneficiary.jsp", "userName", userName);
+		return mv;
+	}
+	
+	@GetMapping("/fundsTransferHome")
+	public ModelAndView fundsTransferHome(@RequestParam("userName") @Valid String userName) throws IBSException {
+		ModelAndView mv = null;
+		System.out.println("in fundsTransferHome");
+		mv = new ModelAndView("/fundsTransferHome.jsp","bncfryList",customerImpl.getListOfBnfcry(userName));
+		System.out.println("1  " +customerImpl.getListOfBnfcry(userName).get(0).getBnfcryAcctName());
+
+		mv.addObject("userName", userName);
+		return mv;
+	}
+	
+	@PostMapping("/transferFunds")
+	public ModelAndView transferFunds(@RequestParam("bnfcryId") long bnfcryId) throws IBSException {
+		ModelAndView mv = null;
+		
+		return mv;
+	}
+	
+	@PostMapping("/addBnfcry")
+	public ModelAndView addBnfcry(@ModelAttribute("addBnf") @Valid CustomerBeneficiaryDto addBnfcry, @RequestParam("userName")  String userName, 
+														BindingResult result) throws IBSException {
+		ModelAndView mv = null;
+		System.out.println("in addBnfcry");
+		customerImpl.addBeneficiary(addBnfcry,userName);
+		List<CustomerBeneficiaryDto> benList = customerImpl.getListOfBnfcry(userName);
+		mv = new ModelAndView("/fundsTransferHome.jsp","bncfryList",benList);
+		System.out.println("2  "+benList.get(0).getBnfcryAcctName());
+		mv.addObject("userName", userName);
 		return mv;
 	}
 	

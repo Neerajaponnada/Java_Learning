@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 public class CustomerTrasactionsDto{
 	
-	private Integer txnId;
+	private long txnId;
 	private CustomerAccountDto custAcctInfo;
 	private String custAcctType;
 	private String txnType;
-	private Integer fromAcctNum; 
-	private Integer toAcctNum;
+	private long fromAcctNum; 
+	private long toAcctNum;
 	private double txnAmt;
 	private LocalDate txnDateTime;
 	private String txnCmnts;
@@ -17,8 +17,8 @@ public class CustomerTrasactionsDto{
 		super();
 	}
 
-	public CustomerTrasactionsDto(Integer txnId, CustomerAccountDto custAcctInfo, String custAcctType, String txnType,
-			Integer fromAcctNum, Integer toAcctNum, Float txnAmt, LocalDate txnDateTime, String txnCmnts) {
+	public CustomerTrasactionsDto(long txnId, CustomerAccountDto custAcctInfo, String custAcctType, String txnType,
+			long fromAcctNum, long toAcctNum, Float txnAmt, LocalDate txnDateTime, String txnCmnts) {
 		super();
 		this.txnId = txnId;
 		this.custAcctInfo = custAcctInfo;
@@ -31,11 +31,11 @@ public class CustomerTrasactionsDto{
 		this.txnCmnts = txnCmnts;
 	}
 
-	public Integer getTxnId() {
+	public long getTxnId() {
 		return txnId;
 	}
 
-	public void setTxnId(Integer txnId) {
+	public void setTxnId(long txnId) {
 		this.txnId = txnId;
 	}
 
@@ -63,19 +63,19 @@ public class CustomerTrasactionsDto{
 		this.txnType = txnType;
 	}
 
-	public Integer getFromAcctNum() {
+	public long getFromAcctNum() {
 		return fromAcctNum;
 	}
 
-	public void setFromAcctNum(Integer fromAcctNum) {
+	public void setFromAcctNum(long fromAcctNum) {
 		this.fromAcctNum = fromAcctNum;
 	}
 
-	public Integer getToAcctNum() {
+	public long getToAcctNum() {
 		return toAcctNum;
 	}
 
-	public void setToAcctNum(Integer toAcctNum) {
+	public void setToAcctNum(long toAcctNum) {
 		this.toAcctNum = toAcctNum;
 	}
 

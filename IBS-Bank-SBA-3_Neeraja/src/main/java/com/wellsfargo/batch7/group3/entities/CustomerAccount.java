@@ -8,10 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,17 +18,20 @@ public class CustomerAccount{
 	@Id
 	@Column(name="UCI")
 	@GeneratedValue
-	private Integer uci;
+	private long uci;
 	
-	@ManyToOne
-	@JoinColumn(name="regId")
-	private KycDetails custRegstrId;
+//	@OneToMany
+//	@JoinColumn(name="regId")
+//	private KycDetails custRegstrId;
 	
-	@OneToMany(mappedBy="custAcctInfo",cascade=CascadeType.ALL)
-	private List<CustomerBeneficiary> custBenf;
+	@Column(name="REG_ID")
+	private long regId;
 	
 	@Column(name="CUST_ACCT_NUM")
-	private Integer custAcctNum;
+	private long custAcctNum;
+	
+	@Column(name="USER_NAME")
+	private String userName;
 	
 	@Column(name="CUST_NAME")
 	private String custName; 
@@ -68,13 +68,16 @@ public class CustomerAccount{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerAccount(Integer uci, KycDetails regstrId, Integer custAcctNum, String custName, String custAcctType,
-			double availableBalance, LocalDate acctStartDate, LocalDate acctCloseDate, String branchName,
-			String branchIFSC, double interestRate, String tenure, String custAcctStatus) {
+	
+	public CustomerAccount(long uci, long regId, long custAcctNum, String userName,
+			String custName, String custAcctType, double availableBalance, LocalDate acctStartDate,
+			LocalDate acctCloseDate, String branchName, String branchIFSC, double interestRate, String tenure,
+			String custAcctStatus) {
 		super();
 		this.uci = uci;
-		this.custRegstrId = regstrId;
+		this.regId = regId;
 		this.custAcctNum = custAcctNum;
+		this.userName = userName;
 		this.custName = custName;
 		this.custAcctType = custAcctType;
 		this.availableBalance = availableBalance;
@@ -87,28 +90,38 @@ public class CustomerAccount{
 		this.custAcctStatus = custAcctStatus;
 	}
 
-	public Integer getUci() {
+
+	public long getUci() {
 		return uci;
 	}
 
-	public void setUci(Integer uci) {
+	public void setUci(long uci) {
 		this.uci = uci;
 	}
 
-	public KycDetails getRegstrId() {
-		return custRegstrId;
+	public long getRegId() {
+		return regId;
 	}
 
-	public void setRegstrId(KycDetails regstrId) {
-		this.custRegstrId = regstrId;
+	public void setRegId(long regId) {
+		this.regId = regId;
 	}
 
-	public Integer getCustAcctNum() {
+
+	public long getCustAcctNum() {
 		return custAcctNum;
 	}
 
-	public void setCustAcctNum(Integer custAcctNum) {
+	public void setCustAcctNum(long custAcctNum) {
 		this.custAcctNum = custAcctNum;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getCustName() {
@@ -190,8 +203,6 @@ public class CustomerAccount{
 	public void setCustAcctStatus(String custAcctStatus) {
 		this.custAcctStatus = custAcctStatus;
 	}
-	
-	
-	
-	
+
+		
 }

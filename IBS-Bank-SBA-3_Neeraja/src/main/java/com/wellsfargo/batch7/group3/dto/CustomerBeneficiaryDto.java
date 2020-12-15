@@ -2,9 +2,9 @@ package com.wellsfargo.batch7.group3.dto;
 
 public class CustomerBeneficiaryDto{
 	
-	private Integer bnfcryId;
-	private CustomerAccountDto custAcctInfo;
-	private Integer bnfcryAcctNum;
+	private long bnfcryId;
+	private long custAcctNum;
+	private long bnfcryAcctNum;
 	private String bnfcryAcctName; 
 	private String bnfcryBankName;
 	private String bnfcryBankIfsc;
@@ -15,12 +15,12 @@ public class CustomerBeneficiaryDto{
 		super();
 	}
 
-	public CustomerBeneficiaryDto(Integer bnfcryId, CustomerAccountDto custAcctInfo, Integer bnfcryAcctNum,
+	public CustomerBeneficiaryDto(long bnfcryId, long custAcctNum, long bnfcryAcctNum,
 			String bnfcryAcctName, String bnfcryBankName, String bnfcryBankIfsc, String bnfcryTxnType,
 			String bnfcryMblNum) {
 		super();
 		this.bnfcryId = bnfcryId;
-		this.custAcctInfo = custAcctInfo;
+		this.custAcctNum = custAcctNum;
 		this.bnfcryAcctNum = bnfcryAcctNum;
 		this.bnfcryAcctName = bnfcryAcctName;
 		this.bnfcryBankName = bnfcryBankName;
@@ -29,27 +29,27 @@ public class CustomerBeneficiaryDto{
 		this.bnfcryMblNum = bnfcryMblNum;
 	}
 
-	public Integer getBnfcryId() {
+	public long getCustAcctNum() {
+		return custAcctNum;
+	}
+
+	public void setCustAcctNum(long custAcctNum) {
+		this.custAcctNum = custAcctNum;
+	}
+
+	public long getBnfcryId() {
 		return bnfcryId;
 	}
 
-	public void setBnfcryId(Integer bnfcryId) {
+	public void setBnfcryId(long bnfcryId) {
 		this.bnfcryId = bnfcryId;
 	}
 
-	public CustomerAccountDto getCustAcctInfo() {
-		return custAcctInfo;
-	}
-
-	public void setCustAcctInfo(CustomerAccountDto custAcctInfo) {
-		this.custAcctInfo = custAcctInfo;
-	}
-
-	public Integer getBnfcryAcctNum() {
+	public long getBnfcryAcctNum() {
 		return bnfcryAcctNum;
 	}
 
-	public void setBnfcryAcctNum(Integer bnfcryAcctNum) {
+	public void setBnfcryAcctNum(long bnfcryAcctNum) {
 		this.bnfcryAcctNum = bnfcryAcctNum;
 	}
 

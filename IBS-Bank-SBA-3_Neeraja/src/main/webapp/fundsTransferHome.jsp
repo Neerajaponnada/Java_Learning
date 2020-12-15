@@ -1,7 +1,10 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
     <head>
-        <title>IBS Bank-Fixed Deposit</title>
+        <title>IBS Bank-Funds Transfer</title>
+    	 		<link href ="${pageContext.request.contextPath}/resources/IBS-Styling.css" type ="text/css" rel ="stylesheet"></link>
     </head>
    <body leftmargin=0 topmargin=0 marginheight="0" marginwidth="0" bgcolor="#FFFFFF" style="background-color:PaleGoldenRod;">
 	<h1 style="text-align:center;background-color:DarkCyan;color:White;font-size:45">IBS Bank</h1>
@@ -12,11 +15,11 @@
                 	<table border="0.5" >
                             <tr bgcolor="#FFF0FF">
                                 <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="fundsTransfer.jsp">Funds Transfer&nbsp;&nbsp;</a></th>
+                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
                                 <th align="center"><a href="fixedDeposit.jsp">Fixed Deposit&nbsp;&nbsp;</a></th>
                                 <th><a href="recurringDeposit.jsp">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
                             <tr>
-                            <tr align="right"><p>Welcome User !! </p></tr>
+                            <tr align="right"><p>Welcome ${userName} !! </p></tr>
                         </table>
                     </td>
                 </tr>
@@ -26,7 +29,7 @@
                     <td bgcolor="#E3E4FA" height="410" width="24%" valign="top">
                         <br><strong>Services</strong><br>
                         <a href="/acctSummary?userName=${userName}">Account Summary<br></a>
-                        <a href="fundsTransfer.jsp">Funds Transfer<br></a>
+                        <a href="/fundsTransferHome?userName=${userName}">Funds Transfer<br></a>
                         <a href="accountStatement.jsp">Account Statement <br></a><br><br>
                         <a href="changePassword.jsp">Change Password<br></a>
                         <a href="index.jsp">Log out</a>
@@ -34,24 +37,49 @@
                         <br>
                     </td>
                     <td width="1100" height="80" bgcolor="#FAF8CC">
-                        <font color="brown"><h2>Account Summary</h2></font>
-                        <h3>Fixed Deposit</h3>
-                        <table border="1" >
-                            <tr bgcolor="#98AFC7">
-                                <th align="center">FD Account Num</th>
-                                <th align="center">Branch</th>
-                                <th>Name</th>
-                                <th>Maturity Date</th>
-                            	<th>Maturity Amount</th></tr>
-                            <tr><td>12345</td>
-                            	<td>Hyderabad</td>
-                            	<td>Tom Cruise</td>
-                                <td>10/20/2025</td>
-                                <td>5,00,000</td></tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+                        <font color="brown"><h2>Funds Transfer</h2></font>
+                        <h4><a href="/addBnfPage?userName=${userName}">Add Beneficiary</a>
+                        <span><a href="/transferFunds?userName=${userName}">Transfer Funds</a></span></h4>
+                        <c:choose>
+				<c:when test="${allOpenRequests==null || allOpenRequests.isEmpty()}">
+					<div class="alert alert-info">
+						<strong>No Beneficiaries Available</strong>
+					</div>
+				</c:when>
+				<c:otherwise>
+                        <table class="table table-bordered table-striped" border = "1" bgcolor="#98AFC7">
+						<thead>
+                            <tr align="center" bgcolor="#98AFC7">
+                                <th >Beneficiary ID</th>
+                                <th>Account Name</th>
+                                <th>Account Number</th>
+                                <th>IFSC </th>
+                            	<th>Bank Name</th>
+                            	<th>Mobile #</th>
+                            	<th> Action </th>
+                            	</tr>
+                            </thead>
+						<tbody>
+							<c:forEach var="c" items="${bncfryList}">
+								<tr bgcolor="#FAF8CC">
+									<td>${c.bnfcryId }</td>
+									<td>${c.bnfcryAcctName }</td>
+									<td>${c.bnfcryAcctNum}</td>
+									<td>${c.bnfcryBankIfsc}</td>
+									<td>${c.bnfcryBankName}</td>
+									<td>${c.bnfcryMblNum}</td>
+									<td>
+										<a href="/transferFunds?bnfcryId=${c.bnfcryId }" class="btn btn-sm btn-danger">Transfer</a>
+									</td>
+									<td>
+										<a href="/deleteBnfcry?bnfcryId=${c.bnfcryId }" class="btn btn-sm btn-danger">Delete</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>					
+					</table>
+					</c:otherwise>
+			</c:choose>
             <table border="0" cellspacing="0" cellpadding="0" width="100%">
             </table>
 
