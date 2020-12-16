@@ -1,31 +1,27 @@
 package com.wellsfargo.batch7.group3.entities;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="CUST_ACCT_TXN_INFO")
-public class CustomerTrasactionsInfo{
+public class CustomerTransactions{
 	
 	@Id
 	@Column(name="TXN_ID")
 	@GeneratedValue
 	private long txnId;
 	
-	@ManyToOne
-	@JoinColumn(name="CUST_ACCT_NUM")
-	private CustomerAccount custAcctInfo;
-	
-	@Column(name="CUST_ACCT_TYPE")
-	private String custAcctType;
+	@Column(name="CUST_ACCT_NUM")
+	private long custAcctNum;
 
+	
 	@Column(name="TXN_TYPE")
 	private String txnType;
 	
@@ -38,30 +34,45 @@ public class CustomerTrasactionsInfo{
 	@Column(name="TXN_AMT")
 	private double txnAmt;
 	
-	@Column(name="TXN_DATE_TIME")
-	private LocalDate txnDateTime;
-	
 	@Column(name="TXN_COMMENTS")
 	private String txnCmnts;
 
-	public CustomerTrasactionsInfo() {
+	@Column(name="TXN_DATE")
+	private Date txnDate;
+	
+	public CustomerTransactions() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerTrasactionsInfo(long txnId, CustomerAccount custAcctInfo, String custAcctType, String txnType,
-			long fromAcctNum, long toAcctNum, Float txnAmt, LocalDate txnDateTime, String txnCmnts) {
+	public CustomerTransactions(long txnId, String custAcctType, String txnType,
+			long fromAcctNum, long toAcctNum, double txnAmt, String txnCmnts,long custAcctNum,Date txnDate) {
 		super();
 		this.txnId = txnId;
-		this.custAcctInfo = custAcctInfo;
-		this.custAcctType = custAcctType;
 		this.txnType = txnType;
 		this.fromAcctNum = fromAcctNum;
 		this.toAcctNum = toAcctNum;
 		this.txnAmt = txnAmt;
-		this.txnDateTime = txnDateTime;
 		this.txnCmnts = txnCmnts;
+		this.custAcctNum = custAcctNum;
+		this.txnDate = txnDate;
 	}
+	
+	public Date getTxnDate() {
+		return txnDate;
+	}
+
+	public void setTxnDate(Date txnDate) {
+		this.txnDate = txnDate;
+	}
+
+	public long getCustAcctNum() {
+		return custAcctNum;
+	}
+
+	public void setCustAcctNum(long custAcctNum) {
+		this.custAcctNum = custAcctNum;
+	}
+
 
 	public long getTxnId() {
 		return txnId;
@@ -69,22 +80,6 @@ public class CustomerTrasactionsInfo{
 
 	public void setTxnId(long txnId) {
 		this.txnId = txnId;
-	}
-
-	public CustomerAccount getCustAcctInfo() {
-		return custAcctInfo;
-	}
-
-	public void setCustAcctInfo(CustomerAccount custAcctInfo) {
-		this.custAcctInfo = custAcctInfo;
-	}
-
-	public String getCustAcctType() {
-		return custAcctType;
-	}
-
-	public void setCustAcctType(String custAcctType) {
-		this.custAcctType = custAcctType;
 	}
 
 	public String getTxnType() {
@@ -115,16 +110,8 @@ public class CustomerTrasactionsInfo{
 		return txnAmt;
 	}
 
-	public void setTxnAmt(Float txnAmt) {
+	public void setTxnAmt(double txnAmt) {
 		this.txnAmt = txnAmt;
-	}
-
-	public LocalDate getTxnDateTime() {
-		return txnDateTime;
-	}
-
-	public void setTxnDateTime(LocalDate txnDateTime) {
-		this.txnDateTime = txnDateTime;
 	}
 
 	public String getTxnCmnts() {
@@ -135,8 +122,5 @@ public class CustomerTrasactionsInfo{
 		this.txnCmnts = txnCmnts;
 	}
 
-	
-
-	
 	
 }

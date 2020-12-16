@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
-import com.wellsfargo.batch7.group3.dto.CustomerTrasactionsDto;
+import com.wellsfargo.batch7.group3.dto.CustomerTransactionsDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.dto.ServiceProviderDto;
@@ -106,12 +106,12 @@ public class AdminServiceImpl implements IAdminService {
 	}
 
 	@Override
-	public CustomerTrasactionsDto chkCustStatement(CustomerTrasactionsDto custAcct) throws IBSException {
+	public CustomerTransactionsDto chkCustStatement(CustomerTransactionsDto custAcct) throws IBSException {
 		return null;
 	}
 
 	@Override
-	public CustomerTrasactionsDto fundDepositEntry(CustomerTrasactionsDto custAcct) throws IBSException {
+	public CustomerTransactionsDto fundDepositEntry(CustomerTransactionsDto custAcct) throws IBSException {
 		return null;
 	}
 	
@@ -284,11 +284,6 @@ public class AdminServiceImpl implements IAdminService {
 		return rejectParse(adminRepo.save(acctObj));
 	}
 	
-	private KycDetails getAcctInfo(long regId) {
-		return adminRepo.findById(regId).get();
-	}
-	
-
 	private KycDetailsDto rejectParse(KycDetails reject) {
 		KycDetailsDto kycReject = new KycDetailsDto();
 		kycReject.setAdminCommentsKYC("Account rejected by Admin");
@@ -297,6 +292,8 @@ public class AdminServiceImpl implements IAdminService {
 		return kycReject;
 	}
 
-	
+	private KycDetails getAcctInfo(long regId) {
+		return adminRepo.findById(regId).get();
+	}
 
 }

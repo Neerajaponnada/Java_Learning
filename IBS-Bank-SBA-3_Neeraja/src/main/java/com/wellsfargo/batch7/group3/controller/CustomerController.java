@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
 import com.wellsfargo.batch7.group3.dto.CustomerBeneficiaryDto;
+import com.wellsfargo.batch7.group3.dto.CustomerTransactionsDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.exception.IBSException;
@@ -67,7 +68,6 @@ public class CustomerController {
 			mv.addObject("userName", loginUser.getUserName());
 		}
 		String userName = loginUser.getUserName();
-		 // session.setAttribute("userName", userName);
 		return mv;
 	}
 	
@@ -101,7 +101,6 @@ public class CustomerController {
 	@GetMapping("/addBnfPage")
 	public ModelAndView addBnfPage(@RequestParam("userName") String userName) throws IBSException {
 		ModelAndView mv = null;
-		System.out.println("in addBnfPage - " +userName);
 		mv = new ModelAndView("addBeneficiary.jsp", "userName", userName);
 		return mv;
 	}
@@ -109,18 +108,35 @@ public class CustomerController {
 	@GetMapping("/fundsTransferHome")
 	public ModelAndView fundsTransferHome(@RequestParam("userName") @Valid String userName) throws IBSException {
 		ModelAndView mv = null;
-		System.out.println("in fundsTransferHome");
 		mv = new ModelAndView("/fundsTransferHome.jsp","bncfryList",customerImpl.getListOfBnfcry(userName));
-		System.out.println("1  " +customerImpl.getListOfBnfcry(userName).get(0).getBnfcryAcctName());
 
 		mv.addObject("userName", userName);
 		return mv;
 	}
 	
-	@PostMapping("/transferFunds")
-	public ModelAndView transferFunds(@RequestParam("bnfcryId") long bnfcryId) throws IBSException {
+	@GetMapping("/transferFunds")
+	public ModelAndView transferFunds(@RequestParam("userName") String userName) throws IBSException {
 		ModelAndView mv = null;
-		
+			mv = new ModelAndView("/fundsTransfer.jsp","bncfryList",customerImpl.getListOfBnfcry(userName));
+			mv.addObject("fromCustAcctNum",customerImpl.getListOfBnfcry(userName).get(0).getCustAcctNum());
+			mv.addObject("userName", userName);
+		return mv;
+	}
+	
+	@GetMapping("/acctStmt")
+	public ModelAndView acctStmt(@RequestParam("userName") String userName) throws IBSException {
+		ModelAndView mv = null;
+			mv = new ModelAndView("/accountStatement.jsp","acctStmt",customerImpl.getAccountStatement(userName));
+			mv.addObject("userName", userName);
+		return mv;
+	}
+	
+	@PostMapping("/transfer")
+	public ModelAndView transfer(@ModelAttribute("transfer") @Valid CustomerTransactionsDto transferObj, @RequestParam("userName") String userName) throws IBSException {
+		ModelAndView mv = null;
+			customerImpl.transferFunds(transferObj);
+			mv = new ModelAndView("/fundsTransferHome.jsp","bncfryList",customerImpl.getListOfBnfcry(userName));
+			mv.addObject("userName", userName);
 		return mv;
 	}
 	
@@ -128,11 +144,9 @@ public class CustomerController {
 	public ModelAndView addBnfcry(@ModelAttribute("addBnf") @Valid CustomerBeneficiaryDto addBnfcry, @RequestParam("userName")  String userName, 
 														BindingResult result) throws IBSException {
 		ModelAndView mv = null;
-		System.out.println("in addBnfcry");
 		customerImpl.addBeneficiary(addBnfcry,userName);
 		List<CustomerBeneficiaryDto> benList = customerImpl.getListOfBnfcry(userName);
 		mv = new ModelAndView("/fundsTransferHome.jsp","bncfryList",benList);
-		System.out.println("2  "+benList.get(0).getBnfcryAcctName());
 		mv.addObject("userName", userName);
 		return mv;
 	}

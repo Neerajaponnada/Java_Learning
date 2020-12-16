@@ -12,10 +12,7 @@
                 <tr><td>
                 	<table border="0.5" >
                             <tr bgcolor="#FFF0FF">
-                                <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary</a></th>
-                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="/fixedDeposit?userName=${userName}">Fixed Deposit&nbsp;&nbsp;</a></th>
-                                <th><a href="/recurringDeposit?userName=${userName}">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
+                               <jsp:include page="customerMenu.jsp"/>    
                             <tr>
                             <tr align="right"><p>Welcome ${userName} !! </p></tr>
                         </table>

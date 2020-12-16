@@ -1,7 +1,7 @@
 package com.wellsfargo.batch7.group3.service;
 
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
-import com.wellsfargo.batch7.group3.dto.CustomerTrasactionsDto;
+import com.wellsfargo.batch7.group3.dto.CustomerTransactionsDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.dto.ServiceProviderDto;
@@ -14,8 +14,8 @@ public interface IAdminService {
 	ServiceProviderDto createServiceProviderId(ServiceProviderDto svcAcct) throws IBSException;
 	
 	
-	CustomerTrasactionsDto chkCustStatement(CustomerTrasactionsDto custAcct) throws IBSException;
-	CustomerTrasactionsDto fundDepositEntry(CustomerTrasactionsDto custAcct) throws IBSException;
+	CustomerTransactionsDto chkCustStatement(CustomerTransactionsDto custAcct) throws IBSException;
+	CustomerTransactionsDto fundDepositEntry(CustomerTransactionsDto custAcct) throws IBSException;
 	
 	LoginDataDto adminLogin(LoginDataDto loginUser) throws IBSException;
 	

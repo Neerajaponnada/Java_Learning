@@ -8,16 +8,13 @@
     </head>
    <body leftmargin=0 topmargin=0 marginheight="0" marginwidth="0" bgcolor="#FFFFFF" style="background-color:PaleGoldenRod;">
 	<h1 style="text-align:center;background-color:DarkCyan;color:White;font-size:45">IBS Bank</h1>
-        
         <form name="acctSummary" >
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr><td>
                 	<table border="0.5" >
-                            <tr bgcolor="#FFF0FF">
-                                <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="fixedDeposit.jsp">Fixed Deposit&nbsp;&nbsp;</a></th>
-                                <th><a href="recurringDeposit.jsp">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
+                            <tr bgcolor="#FFF0FF" >
+                            <jsp:include page="customerMenu.jsp"/>    
+							</tr>
                             <tr>
                             <tr align="right"><p>Welcome ${userName} !! </p></tr>
                         </table>
@@ -30,7 +27,7 @@
                         <br><strong>Services</strong><br>
                         <a href="/acctSummary?userName=${userName}">Account Summary<br></a>
                         <a href="/fundsTransferHome?userName=${userName}">Funds Transfer<br></a>
-                        <a href="accountStatement.jsp">Account Statement <br></a><br><br>
+                        <a href="/acctStmt?userName=${userName}">Statement&nbsp;&nbsp;</a><br><br>
                         <a href="changePassword.jsp">Change Password<br></a>
                         <a href="index.jsp">Log out</a>
                         <br>

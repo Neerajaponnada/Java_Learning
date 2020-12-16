@@ -1,27 +1,28 @@
 package com.wellsfargo.batch7.group3.service.impl;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
 import com.wellsfargo.batch7.group3.dto.CustomerBeneficiaryDto;
+import com.wellsfargo.batch7.group3.dto.CustomerTransactionsDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.dto.LoginDataDto;
 import com.wellsfargo.batch7.group3.entities.CustomerAccount;
 import com.wellsfargo.batch7.group3.entities.CustomerBeneficiary;
-import com.wellsfargo.batch7.group3.entities.CustomerTrasactionsInfo;
+import com.wellsfargo.batch7.group3.entities.CustomerTransactions;
 import com.wellsfargo.batch7.group3.entities.KycDetails;
-import com.wellsfargo.batch7.group3.entities.ServiceProvider;
 import com.wellsfargo.batch7.group3.exception.IBSException;
 import com.wellsfargo.batch7.group3.repository.CustomerRepository;
+import com.wellsfargo.batch7.group3.repository.CustomerTransactionsRepository;
 import com.wellsfargo.batch7.group3.repository.CustomerBeneficiaryRepository;
 import com.wellsfargo.batch7.group3.repository.LoginRepository;
 import com.wellsfargo.batch7.group3.service.ICustomerService;
@@ -34,6 +35,9 @@ public class CustomerImpl implements ICustomerService {
 	
 	@Autowired
 	private CustomerBeneficiaryRepository custBnfRepo;
+	
+	@Autowired
+	private CustomerTransactionsRepository custTxnRepo;
 	
 	@Autowired
 	private LoginRepository loginRepo;
@@ -71,7 +75,6 @@ public class CustomerImpl implements ICustomerService {
 		List<CustomerAccount> custAcct = customerRepo.findByUserName(userName);
 		
 		long custAcctNum = 0;
-		System.out.println(custBnfcryAcct.getBnfcryAcctName()+custBnfcryAcct.getBnfcryAcctName());
 		for (int i = 0;i<custAcct.size();i++) {
 			if(custAcct.get(i).getCustAcctType().equalsIgnoreCase("Savings Account")) {
 				custAcctNum = custAcct.get(i).getCustAcctNum();
@@ -141,13 +144,11 @@ public class CustomerImpl implements ICustomerService {
 	public List<CustomerAccountDto> getSavingsAcctInfo(List<CustomerAccountDto> custAcct1) {
 		List<CustomerAccountDto> custAcct = custAcct1;
 		for(int i =0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctType());
 			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Recurring Deposit")) {
 				custAcct.remove(i);
 			} 
 		}
 		for(int i =0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctType());
 			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Fixed Deposit")) {
 				custAcct.remove(i);
 			}
@@ -156,16 +157,32 @@ public class CustomerImpl implements ICustomerService {
 		return custAcct;
 	}
 	
-	public List<CustomerAccountDto> getFixedDepositInfo(List<CustomerAccountDto> custAcct1) {
-		List<CustomerAccountDto> custAcct = custAcct1;
+	public CustomerAccount getSavingsAcctData(List<CustomerAccount> custAcct1) {
+		List<CustomerAccount> custAcct = custAcct1;
 		for(int i =0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctType());
 			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Recurring Deposit")) {
 				custAcct.remove(i);
 			} 
 		}
 		for(int i =0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Fixed Deposit")) {
+				custAcct.remove(i);
+			}
+		}
+		
+		CustomerAccount custAcct2 = custAcct.get(0);
+		
+		return custAcct2;
+	}
+	
+	public List<CustomerAccountDto> getFixedDepositInfo(List<CustomerAccountDto> custAcct1) {
+		List<CustomerAccountDto> custAcct = custAcct1;
+		for(int i =0;i<custAcct.size();i++) {
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Recurring Deposit")) {
+				custAcct.remove(i);
+			} 
+		}
+		for(int i =0;i<custAcct.size();i++) {
 			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Savings Account")) {
 				custAcct.remove(i);
 			}
@@ -177,13 +194,11 @@ public class CustomerImpl implements ICustomerService {
 	public List<CustomerAccountDto> getRecurringDepositInfo(List<CustomerAccountDto> custAcct1) {
 		List<CustomerAccountDto> custAcct = custAcct1;
 		for(int i =0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctType());
 			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Savings Account")) {
 				custAcct.remove(i);
 			} 
 		}
 		for(int i =0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctType());
 			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Fixed Deposit")) {
 				custAcct.remove(i);
 			}
@@ -199,14 +214,12 @@ public class CustomerImpl implements ICustomerService {
 		
 		long custAcctNum = 0;
 		for (int i = 0;i<custAcct.size();i++) {
-			System.out.println(custAcct.get(i).getCustAcctNum());
 			if(custAcct.get(i).getCustAcctType().equalsIgnoreCase("Savings Account")) {
 				custAcctNum = custAcct.get(i).getCustAcctNum();
 		}
 		}
-		System.out.println("custAcct "+custAcctNum);
-		
-		return custBnfRepo.findByCustAcctNum(custAcctNum).stream().map(e -> bnfcryParse(e)).collect(Collectors.toList());
+		List<CustomerBeneficiary> b1 = custBnfRepo.findByCustAcctNum(custAcctNum);
+		return b1.stream().map(e -> bnfcryParse(e)).collect(Collectors.toList());
 	}
 
 
@@ -219,9 +232,97 @@ public class CustomerImpl implements ICustomerService {
 		target.setBnfcryBankName(source.getBnfcryBankName());
 		target.setBnfcryBankIfsc(source.getBnfcryBankIfsc());
 		target.setBnfcryMblNum(source.getBnfcryMblNum());
+		target.setCustAcctNum(source.getCustAcctNum());
+		return target;
+	}
+
+
+	public CustomerTransactionsDto transferFunds(@Valid CustomerTransactionsDto transferObj) throws IBSException{
+			double existingBal = getSavingsAcctData(customerRepo.findByCustAcctNum(transferObj.getFromAcctNum())).getAvailableBalance();
+			
+			if (transferObj.getTxnAmt() > existingBal ) {
+				throw new IBSException("Transaction Amount cannot be greater that your current account balance !! ");
+			}
+			
+			CustomerTransactionsDto txnObj = txnParse(custTxnRepo.save(txnParse(transferObj)));
+			updateCustBal(txnObj);
+		return txnObj;
+	}
+
+	@Modifying
+	@Override
+	public CustomerAccountDto updateCustBal(CustomerTransactionsDto txnObj) {
+		List<CustomerAccount> custAcct1 = customerRepo.findByCustAcctNum(txnObj.getFromAcctNum());
+		CustomerAccount custAcct = getSavingsAcctData(custAcct1);
+		double prevBal = custAcct.getAvailableBalance();
+		double newBal = prevBal - txnObj.getTxnAmt();
+		System.out.println("in update cust bal "+newBal+" "+prevBal);
+		custAcct.setAvailableBalance(newBal);
+		
+		return updateParse(customerRepo.save(custAcct));
+	}
+
+	private CustomerAccountDto updateParse(CustomerAccount custAcct) {
+		CustomerAccountDto updCust = new CustomerAccountDto();
+		updCust.setAvailableBalance(custAcct.getAvailableBalance());
+		//System.out.println("in updateParse "+updCust.getAvailableBalance());
+
+		return updCust;
+	}
+	
+	private CustomerTransactions txnParse(@Valid CustomerTransactionsDto source) {
+		CustomerTransactions target = new CustomerTransactions();
+		
+		target.setCustAcctNum(source.getFromAcctNum());
+		target.setFromAcctNum(source.getFromAcctNum());
+		target.setToAcctNum(source.getToAcctNum());
+		target.setTxnAmt(source.getTxnAmt());
+		target.setTxnCmnts(source.getTxnCmnts());
+		target.setTxnType("IMPS");
+		target.setTxnDate(new Date());
+		return target;
+	}
+	
+	private CustomerTransactionsDto txnParse(@Valid CustomerTransactions source) {
+		CustomerTransactionsDto target = new CustomerTransactionsDto();
+		
+		target.setCustAcctNum(source.getFromAcctNum());
+		target.setFromAcctNum(source.getFromAcctNum());
+		target.setToAcctNum(source.getToAcctNum());
+		target.setTxnAmt(source.getTxnAmt());
+		target.setTxnCmnts(source.getTxnCmnts());
+		target.setTxnType("IMPS");
 		
 		return target;
 	}
 
-	
+	@Override
+	public List<CustomerTransactionsDto> getAccountStatement(String userName) {
+		long custNum = getSavingsAcctData(customerRepo.findByUserName(userName)).getCustAcctNum();
+		
+		//List<CustomerTransactionsDto> custTxnObj = custTxnRepo.getTxnData(custNum);
+		
+		return custTxnRepo.findByCustAcctNum(custNum).stream().map(e -> custTxnParse(e)).collect(Collectors.toList());
+	}
+
+	private CustomerTransactionsDto custTxnParse(CustomerTransactions source) {
+		CustomerTransactionsDto target = new CustomerTransactionsDto();
+		
+		target.setTxnId(source.getTxnId());
+		target.setCustAcctNum(source.getFromAcctNum());
+		target.setFromAcctNum(source.getFromAcctNum());
+		target.setToAcctNum(source.getToAcctNum());
+		target.setTxnAmt(source.getTxnAmt());
+		target.setTxnCmnts(source.getTxnCmnts());
+		target.setTxnType(source.getTxnType());
+		target.setTxnDate(source.getTxnDate());
+		
+		return target;
+	}
+
+
+	public CustomerTransactionsDto getTxnData(long custNum) {
+		return null;
+
+	}
 }
