@@ -61,7 +61,7 @@ public class CustomerController {
 				System.out.println("In customer");
 				customerImpl.userLogin(loginUser);
 				custData = customerImpl.getCustomerData(loginUser.getUserName());
-				mv = new ModelAndView("accountSummary.jsp", "customerInfo", custData);
+				mv = new ModelAndView("accountSummary.jsp", "savingsData", customerImpl.getSavingsAcctInfo(customerImpl.getCustomerData(loginUser.getUserName())) );
 			}
 			mv.addObject("loginUser", loginUser);
 			mv.addObject("userName", loginUser.getUserName());
@@ -74,11 +74,30 @@ public class CustomerController {
 	@GetMapping("/acctSummary")
 	public ModelAndView acctSummaryAction(@RequestParam("userName") @Valid String userName) throws IBSException {
 		ModelAndView mv = null;
-		mv = new ModelAndView("accountSummary.jsp", "customerInfo", customerImpl.getCustomerData(userName));
+		List<CustomerAccountDto> custAcct = customerImpl.getCustomerData(userName);
+		mv = new ModelAndView("accountSummary.jsp", "savingsData", customerImpl.getSavingsAcctInfo(custAcct) );
 		mv.addObject("userName", userName);
 		return mv;
 	}
 	
+	@GetMapping("/fixedDeposit")
+	public ModelAndView fixedDepAction(@RequestParam("userName") @Valid String userName) throws IBSException {
+		ModelAndView mv = null;
+		List<CustomerAccountDto> custAcct = customerImpl.getCustomerData(userName);
+		mv = new ModelAndView("fixedDeposit.jsp", "fdData", customerImpl.getFixedDepositInfo(custAcct) );
+		mv.addObject("userName", userName);
+		return mv;
+	}
+	
+	@GetMapping("/recurringDeposit")
+	public ModelAndView recurringDepAction(@RequestParam("userName") @Valid String userName) throws IBSException {
+		ModelAndView mv = null;
+		List<CustomerAccountDto> custAcct = customerImpl.getCustomerData(userName);
+		mv = new ModelAndView("recurringDeposit.jsp", "rdData", customerImpl.getRecurringDepositInfo(custAcct) );
+		mv.addObject("userName", userName);
+		return mv;
+	}
+
 	@GetMapping("/addBnfPage")
 	public ModelAndView addBnfPage(@RequestParam("userName") String userName) throws IBSException {
 		ModelAndView mv = null;

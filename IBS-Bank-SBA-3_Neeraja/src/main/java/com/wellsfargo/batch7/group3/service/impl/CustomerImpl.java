@@ -1,6 +1,7 @@
 package com.wellsfargo.batch7.group3.service.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -136,6 +137,62 @@ public class CustomerImpl implements ICustomerService {
 		return target;
 	}
 
+	
+	public List<CustomerAccountDto> getSavingsAcctInfo(List<CustomerAccountDto> custAcct1) {
+		List<CustomerAccountDto> custAcct = custAcct1;
+		for(int i =0;i<custAcct.size();i++) {
+			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Recurring Deposit")) {
+				custAcct.remove(i);
+			} 
+		}
+		for(int i =0;i<custAcct.size();i++) {
+			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Fixed Deposit")) {
+				custAcct.remove(i);
+			}
+		}
+		
+		return custAcct;
+	}
+	
+	public List<CustomerAccountDto> getFixedDepositInfo(List<CustomerAccountDto> custAcct1) {
+		List<CustomerAccountDto> custAcct = custAcct1;
+		for(int i =0;i<custAcct.size();i++) {
+			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Recurring Deposit")) {
+				custAcct.remove(i);
+			} 
+		}
+		for(int i =0;i<custAcct.size();i++) {
+			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Savings Account")) {
+				custAcct.remove(i);
+			}
+		}
+		
+		return custAcct;
+	}
+	
+	public List<CustomerAccountDto> getRecurringDepositInfo(List<CustomerAccountDto> custAcct1) {
+		List<CustomerAccountDto> custAcct = custAcct1;
+		for(int i =0;i<custAcct.size();i++) {
+			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Savings Account")) {
+				custAcct.remove(i);
+			} 
+		}
+		for(int i =0;i<custAcct.size();i++) {
+			System.out.println(custAcct.get(i).getCustAcctType());
+			if((custAcct.get(i).getCustAcctType()).equalsIgnoreCase("Fixed Deposit")) {
+				custAcct.remove(i);
+			}
+		}
+		
+		return custAcct;
+	}
+	
+
 
 	public List<CustomerBeneficiaryDto> getListOfBnfcry(@Valid String userName) {
 		List<CustomerAccount> custAcct = customerRepo.findByUserName(userName);
@@ -164,10 +221,6 @@ public class CustomerImpl implements ICustomerService {
 		target.setBnfcryMblNum(source.getBnfcryMblNum());
 		
 		return target;
-	}
-
-	private KycDetails getAcctInfo(long regId) {
-		return null;//adminRepo.findById(regId).get();
 	}
 
 	

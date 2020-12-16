@@ -225,7 +225,7 @@ public class AdminServiceImpl implements IAdminService {
 		newFDAcct.setRegId(source.getRegId());
 		newFDAcct.setCustAcctNum(Long.parseLong(source.getRegId() + "102"));
 		newFDAcct.setCustAcctStatus("Active");
-		newFDAcct.setCustAcctType("Fixed Deposit Account");
+		newFDAcct.setCustAcctType("Fixed Deposit");
 		newFDAcct.setInterestRate(5.5);
 		newFDAcct.setTenure("2 years");
 		newFDAcct.setUserName(source.getUserName());
@@ -245,7 +245,7 @@ public class AdminServiceImpl implements IAdminService {
 		newRDAcct.setRegId(source.getRegId());
 		newRDAcct.setCustAcctNum(Long.parseLong(source.getRegId() + "103"));
 		newRDAcct.setCustAcctStatus("Active");
-		newRDAcct.setCustAcctType("Recurring Deposit Account");
+		newRDAcct.setCustAcctType("Recurring Deposit");
 		newRDAcct.setInterestRate(5.1);
 		newRDAcct.setTenure("2 years");
 		newRDAcct.setUserName(source.getUserName());

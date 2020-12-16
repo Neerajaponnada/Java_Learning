@@ -1,77 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
     <head>
     
-           	<style>
-        body {
-            background-color: powderblue;
-        }
-       
-        h1 {
-            color: green;
-            background-color: green;
-            font-size: 1em;
-            text-align: center;
-            line-height: 30px;
-        }
-       
-        h1 {
-            color: red;
-            background-color: LightSeaGreen;
-            font-size: 5em;
-            text-align: center;
-            line-height: 60px;
-        }
-        
-        h2,
-        ul {
-            text-align: center;
-        }
-       
-        li {
-            list-style: none;
-            display: inline-block;
-            padding: 5px;
-            border: 1px solid black;
-        }
-       
-        form {
-            text-align: center;
-        }
-       
-        label {
-            margin-right: 5px;
-            width: 75px;
-            display: inline-block;
-        }
-       
-        .formInput {
-            margin: 10px;
-            font-size: 15px;
-        }
-        input{
-            margin: 5px;
-        }
-       
-        button {
-            margin: 5px;
-            width: 82px;
-        }
-       
-        a {
-            margin-right: 5px;
-        }
-       
-        footer {
-            background-color: LightSeaGreen;
-            font-size: 1em;
-            text-align: center;
-            line-height: 20px;
-        }
-        </style>-- 
         <title>IBS Bank- Recurring Deposit</title>
     </head>
-   <body">
+   <body>
 	<h1>IBS Bank</h1>
         
         <form name="acctSummary" >
@@ -79,12 +14,12 @@
                 <tr><td>
                 	<table border="0.5" >
                             <tr bgcolor="#FFF0FF">
-                                <th align="center"><a href="accountSummary.jsp">Account Summary&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="fundsTransfer.jsp">Funds Transfer&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="fixedDeposit.jsp">Fixed Deposit&nbsp;&nbsp;</a></th>
-                                <th><a href="recurringDeposit.jsp">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
+                                <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary</a></th>
+                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
+                                <th align="center"><a href="/fixedDeposit?userName=${userName}">Fixed Deposit&nbsp;&nbsp;</a></th>
+                                <th><a href="/recurringDeposit?userName=${userName}">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
                             <tr>
-                            <tr align="right"><p>Welcome User !! </p></tr>
+                            <tr align="right"><p>Welcome ${userName} !! </p></tr>
                         </table>
                     </td>
                 </tr>
@@ -104,21 +39,36 @@
                     <td width="1100" height="410" bgcolor="#FAF8CC">
                         <font color="brown"><h2>Account Summary</h2></font>
                         <h3>Recurring Deposit</h3>
-                        <table border="1" >
+             <c:choose>
+				<c:when test="${rdData==null || rdData.isEmpty()}">
+					<div class="alert alert-info">
+						<strong>No Recurring Deposit Account Available</strong>
+					</div>
+				</c:when>
+				<c:otherwise>
+				 <table border="1" ><thead>
                             <tr bgcolor="#98AFC7">
-                                <th align="center">RD Account Num</th>
-                                <th align="center">Branch</th>
-                                <th>Name</th>
+                               <th>Account Number</th>
+								<th>Customer Name</th>
+								<th>Branch Name</th>
                                 <th>Tenure</th>
                                 <th>Maturity Date</th>
-                            	<th>Maturity Amount</th></tr>
-                            <tr><td>12345</td>
-                            	<td>Hyderabad</td>
-                            	<td>Tom Cruise</td>
-                            	<td>24 months</td>
-                                <td>10/20/2024</td>
-                                <td>3,00,000</td></tr>
+                            	<th>Maturity Amount</th></tr></thead>
+                            <tbody>
+							<c:forEach var="c" items="${rdData }">
+								<tr bgcolor="#FAF8CC">
+									<td>${c.custAcctNum }</td>
+									<td>${c.custName }</td>
+									<td>${c.branchName}</td>
+									<td>${c.tenure}</td>
+									<td>${c.acctCloseDate}</td>
+									<td>${c.availableBalance}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
                         </table>
+                        </c:otherwise>
+			</c:choose>
                     </td>
                 </tr>
             </table>

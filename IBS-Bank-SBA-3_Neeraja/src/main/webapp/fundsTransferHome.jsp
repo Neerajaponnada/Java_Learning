@@ -40,8 +40,8 @@
                         <font color="brown"><h2>Funds Transfer</h2></font>
                         <h4><a href="/addBnfPage?userName=${userName}">Add Beneficiary</a>
                         <span><a href="/transferFunds?userName=${userName}">Transfer Funds</a></span></h4>
-                        <c:choose>
-				<c:when test="${allOpenRequests==null || allOpenRequests.isEmpty()}">
+               <c:choose>
+				<c:when test="${bncfryList==null || bncfryList.isEmpty()}">
 					<div class="alert alert-info">
 						<strong>No Beneficiaries Available</strong>
 					</div>
@@ -56,7 +56,7 @@
                                 <th>IFSC </th>
                             	<th>Bank Name</th>
                             	<th>Mobile #</th>
-                            	<th> Action </th>
+                            	<th colspan="1">Action</th>
                             	</tr>
                             </thead>
 						<tbody>
@@ -68,9 +68,9 @@
 									<td>${c.bnfcryBankIfsc}</td>
 									<td>${c.bnfcryBankName}</td>
 									<td>${c.bnfcryMblNum}</td>
-									<td>
+									<!-- <td>
 										<a href="/transferFunds?bnfcryId=${c.bnfcryId }" class="btn btn-sm btn-danger">Transfer</a>
-									</td>
+									</td> -->
 									<td>
 										<a href="/deleteBnfcry?bnfcryId=${c.bnfcryId }" class="btn btn-sm btn-danger">Delete</a>
 									</td>

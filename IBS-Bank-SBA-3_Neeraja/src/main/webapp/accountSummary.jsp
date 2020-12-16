@@ -14,8 +14,8 @@
                             <tr bgcolor="#FFF0FF">
                                 <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary</a></th>
                                 <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="fixedDeposit.jsp">Fixed Deposit&nbsp;&nbsp;</a></th>
-                                <th><a href="recurringDeposit.jsp">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
+                                <th align="center"><a href="/fixedDeposit?userName=${userName}">Fixed Deposit&nbsp;&nbsp;</a></th>
+                                <th><a href="/recurringDeposit?userName=${userName}">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
                             <tr>
                             <tr align="right"><p>Welcome ${userName} !! </p></tr>
                         </table>
@@ -37,26 +37,37 @@
                     <td  width="1100" height="80" bgcolor="#FAF8CC">
                         <font color="brown"><h2>Account Summary</h2></font>
                         <h3>Savings Account</h3>
-                       <table class="table table-bordered table-striped">
+                       <c:choose>
+				<c:when test="${savingsData==null || savingsData.isEmpty()}">
+					<div class="alert alert-info">
+						<strong>Account is not approved yet by the Admin</strong>
+					</div>
+				</c:when>
+				<c:otherwise>
+				<table class="table table-bordered table-striped" border = "1">
 						<thead>
 							<tr align="center" bgcolor="#E3E4FA" valign="top">
 							<th>Account Number</th>
 							<th>Customer Name</th>
 							<th>Branch Name</th>
 							<th>Account Balance</th>
+							<th>Account Type</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="c" items="${customerInfo }">
+							<c:forEach var="c" items="${savingsData }">
 								<tr bgcolor="#FAF8CC">
 									<td>${c.custAcctNum }</td>
 									<td>${c.custName }</td>
 									<td>${c.branchName}</td>
 									<td>${c.availableBalance}</td>
+									<td>${c.custAcctType}</td>
 								</tr>
 							</c:forEach>
 						</tbody>					
 					</table>
+					</c:otherwise>
+			</c:choose>
                     </td>
                 </tr>
             </table>
