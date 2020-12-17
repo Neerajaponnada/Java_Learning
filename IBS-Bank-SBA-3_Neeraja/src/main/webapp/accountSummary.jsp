@@ -12,26 +12,16 @@
                 <tr><td>
                 	<table border="0.5" >
                             <tr bgcolor="#FFF0FF">
-                               <jsp:include page="customerMenu.jsp"/>    
+                               <jsp:include page="customerMenu.jsp"/>   
                             <tr>
-                            <tr align="right"><p>Welcome ${userName} !! </p></tr>
+                            <tr align="right"><p align="right">Welcome ${userName} !! </p></tr>
                         </table>
                     </td>
                 </tr>
             </table>
             <table>
                 <tr>
-                    <td bgcolor="#E3E4FA" height="410" width="24%" valign="top">
-                        <br><strong>Services</strong><br>
-                        <a href="/acctSummary?userName=${userName}">Account Summary<br></a>
-                        <a href="/fundsTransferHome?userName=${userName}">Funds Transfer<br></a>
-                        <a href="accountStatement">Account Statement <br></a><br><br>
-                        <a href="changePassword.jsp">Change Password<br></a>
-                        <a href="index.jsp">Log out</a>
-                        <br>
-                        <br>
-                    </td>
-                    <td  width="1100" height="80" bgcolor="#FAF8CC">
+                    <td  width="1400" height="80" bgcolor="#FAF8CC">
                         <font color="brown"><h2>Account Summary</h2></font>
                         <h3>Savings Account</h3>
                        <c:choose>

@@ -1,7 +1,11 @@
 package com.wellsfargo.batch7.group3.service.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -11,6 +15,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wellsfargo.batch7.group3.dto.AccountStatementDto;
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
 import com.wellsfargo.batch7.group3.dto.CustomerBeneficiaryDto;
 import com.wellsfargo.batch7.group3.dto.CustomerTransactionsDto;
@@ -320,9 +325,44 @@ public class CustomerImpl implements ICustomerService {
 		return target;
 	}
 
+	public List<CustomerTransactionsDto> getFilteredStatement(AccountStatementDto filterStmtData) throws ParseException {
+		//System.out.println("in filter stmt");
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+		String startDate = filterStmtData.getStartDate();
+		String endDate = filterStmtData.getEndDate();
+		Date txnDate = null;
+		System.out.println(startDate+"|"+endDate);
+		
+		
+		List<CustomerTransactionsDto> txnObj = custTxnRepo.findByCustAcctNum(filterStmtData.getCustAcctNum()).stream().map(e -> custTxnParse(e)).collect(Collectors.toList());
+//		List<CustomerTransactionsDto> newTxnData = null;
+//		for (int i = 0 ; i < txnObj.size() ; i++) {
+//			
+//			format = new SimpleDateFormat();
+//			System.out.println("*** ");
+//			System.out.println((Date)format.parseObject(startDate));
+//			System.out.println((Date)format.parseObject(endDate));
+//			
+//			txnDate = txnObj.get(i).getTxnDate();
+//			
+			//System.out.println("# "+startDate+"|"+endDate);
+//			if(txnDate.after(startDate) && txnDate.before(endDate)) {
+//				newTxnData.add(i, txnObj.get(i));
+//			}
+//		}
+//			for (int j = 0 ; j < txnObj.size() ; j++) {
+//				System.out.println(newTxnData.get(j).getTxnId());
+//			}
+			
+		return txnObj;
+	}
+	
 
 	public CustomerTransactionsDto getTxnData(long custNum) {
 		return null;
 
 	}
+
+
 }

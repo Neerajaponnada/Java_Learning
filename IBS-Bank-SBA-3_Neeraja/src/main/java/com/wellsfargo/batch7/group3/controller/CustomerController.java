@@ -1,5 +1,6 @@
 package com.wellsfargo.batch7.group3.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wellsfargo.batch7.group3.dto.AccountStatementDto;
 import com.wellsfargo.batch7.group3.dto.CustomerAccountDto;
 import com.wellsfargo.batch7.group3.dto.CustomerBeneficiaryDto;
 import com.wellsfargo.batch7.group3.dto.CustomerTransactionsDto;
@@ -46,9 +48,7 @@ public class CustomerController {
 	public ModelAndView loginAction(@ModelAttribute("login") @Valid LoginDataDto loginUser, BindingResult result) throws IBSException {
 
 		ModelAndView mv = null;
-		
 		List<CustomerAccountDto> custData = null;
-		
 		System.out.println(loginUser.getUserName()+" , "+loginUser.getPassword()+" , "+loginUser.getRole());
 		if (result.hasErrors()) {
 			mv = new ModelAndView("loginPage.jsp", "loginUser", loginUser);
@@ -127,7 +127,23 @@ public class CustomerController {
 	public ModelAndView acctStmt(@RequestParam("userName") String userName) throws IBSException {
 		ModelAndView mv = null;
 			mv = new ModelAndView("/accountStatement.jsp","acctStmt",customerImpl.getAccountStatement(userName));
+			mv.addObject("custAcctNum",customerImpl.getCustomerData(userName).get(0).getCustAcctNum());
 			mv.addObject("userName", userName);
+		return mv;
+	}
+	
+	@GetMapping("/filterStmt")
+	public ModelAndView filterAcctStmt(@ModelAttribute("filterStmt") @Valid AccountStatementDto filterStmtData) throws IBSException, ParseException {
+		ModelAndView mv = null;
+		System.out.println(filterStmtData.getCustAcctNum());
+		System.out.println(filterStmtData.getStartDate());
+		System.out.println(filterStmtData.getEndDate());
+		System.out.println(filterStmtData.getUserName());
+		
+			mv = new ModelAndView("/accountStatement.jsp","acctStmt",customerImpl.getFilteredStatement(filterStmtData));
+//			mv.addObject("custAcctNum",customerImpl.getCustomerData(userName).get(0).getCustAcctNum());
+			mv.addObject("userName", filterStmtData.getUserName());
+			mv.addObject("custAcctNum", filterStmtData.getCustAcctNum());
 		return mv;
 	}
 	

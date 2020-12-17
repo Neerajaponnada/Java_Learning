@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+m<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html>
@@ -33,9 +33,16 @@
                         <br>
                     </td>
                     <td width="1100" height="80" bgcolor="#FAF8CC">
-                        <font color="brown"><h2>Funds Transfer</h2></font>
-                        <h4><a href="/addBnfPage?userName=${userName}">Add Beneficiary</a>
-                        <span><a href="/transferFunds?userName=${userName}">Transfer Funds</a></span></h4>
+              <form:form action="/filterStmt?userName=${userName}" method="GET" modelAttribute="filterStmt" class="form">
+                        <font color="brown"><h2>Account Statement</h2></font>
+                        <strong>Customer</strong><input type="text" name="custAcctNum"  value=${custAcctNum} readonly />
+                        <strong>UserName</strong><input type="text" name="userName"  value=${userName} readonly />
+                        <strong>From </strong> 
+							<em><input type="date" name="startDate" required /></em>
+						<strong>To </strong>
+						<em><input type="date" name="endDate" required />
+						<button>Filter</button>
+				</form:form>
                <c:choose>
 				<c:when test="${acctStmt==null || acctStmt.isEmpty()}">
 					<div class="alert alert-info">
