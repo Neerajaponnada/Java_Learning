@@ -21,47 +21,48 @@
 	
 	<hr/>
 	<h6>${approvalStatus}</h6>
-	<c:choose>
-				<c:when test="${allOpenRequests==null || allOpenRequests.isEmpty() }">
+	<form:form action="/adminStmt?userName=${userName}" method="GET" modelAttribute="adminStmt" class="form">
+                        <font color="brown" align = "left"><h2>Customer Account Statement</h2></font>
+                        <strong>Customer</strong><input type="text" name="custAcctNum"   />
+                        <strong>UserName</strong><input type="text" name="userName" />
+                       <!--  <strong>From </strong> 
+							<em><input type="date" name="startDate" required /></em>
+						<strong>To </strong>
+						<em><input type="date" name="endDate" required /> -->
+						<button>Filter</button>
+				</form:form>
+               <c:choose>
+				<c:when test="${acctStmt==null || acctStmt.isEmpty()}">
 					<div class="alert alert-info">
-						<strong>No Open Account Requests Available</strong>
+						<strong></strong>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<table class="table table-bordered table-striped" border="1">
+                        <table class="table table-bordered table-striped" border = "1" bgcolor="#98AFC7">
 						<thead>
-							<tr valign="top">
-							<th>Reg Id</th>
-							<th>User Name</th>
-							<th>Mobile Num</th>
-							<th>Type Of Account</th>
-							<th>Customer Accounts</th>
-							<th colspan="2">Admin Action</th>
-							</tr>
-						</thead>
+                            <tr align="center" bgcolor="#98AFC7">
+                                <th >Transaction ID</th>
+                                <th>From Account</th>
+                                <th>To Account</th>
+                                <th>Transaction Amount</th>
+                                <th>Transaction Date</th>
+                                <th>Comments </th>
+                            	</tr>
+                            </thead>
 						<tbody>
-							<c:forEach var="c" items="${allOpenRequests }">
+							<c:forEach var="c" items="${acctStmt}">
 								<tr bgcolor="#FAF8CC">
-									<td>${c.regId }</td>
-									<td>${c.userName }</td>
-									<td>${c.mobileNum}</td>
-									<td>${c.typeOfAcctHolder}</td>
-									<td>${c.custAcctType }</td>
-									<td>
-										<a href="/approve?regId=${c.regId }" class="btn btn-sm btn-danger">
-											Approve
-										</a>
-									</td>
-									<td>
-										<a href="/reject?regId=${c.regId }" class="btn btn-sm btn-info">
-											Reject
-										</a>
-									</td>
+									<td>${c.txnId }</td>
+									<td>${c.fromAcctNum}</td>
+									<td>${c.toAcctNum}</td>
+									<td>${c.txnAmt}</td>
+									<td>${c.txnDate}</td>
+									<td>${c.txnCmnts}</td>
 								</tr>
 							</c:forEach>
 						</tbody>					
 					</table>
-				</c:otherwise>
+					</c:otherwise>
 			</c:choose>
 		
 	 <p>

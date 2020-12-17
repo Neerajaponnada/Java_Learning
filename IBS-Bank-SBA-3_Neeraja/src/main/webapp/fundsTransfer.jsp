@@ -9,32 +9,17 @@
     </head>
    <body>
 	<h1>IBS Bank</h1>
-            <table border="0" cellspacing="0" cellpadding="0">
+           <table border="0" cellspacing="0" cellpadding="0" >
                 <tr><td>
                 	<table border="0.5" >
                             <tr bgcolor="#FFF0FF">
-                                <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary</a></th>
-                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="/fixedDeposit?userName=${userName}">Fixed Deposit&nbsp;&nbsp;</a></th>
-                                <th><a href="/recurringDeposit?userName=${userName}">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
+                               <jsp:include page="customerMenu.jsp"/>   
                             <tr>
-                            <tr align="right"><p>Welcome ${userName} !! </p></tr>
+                            <tr align="right"><p align="right">Welcome ${userName} !! </p></tr>
                         </table>
                     </td>
                 </tr>
             </table>
-            <table>
-                <tr>
-                    <td bgcolor="#E3E4FA" height="410" width="24%" valign="top">
-                        <br><strong>Services</strong><br>
-                        <a href="/acctSummary?userName=${userName}">Account Summary</a>
-                        <a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a>
-                        <a href="/acctStmt?userName=${userName}">Account Statement&nbsp;&nbsp;</a><br><br>
-                        <a href="changePassword.jsp">Change Password<br></a>
-                        <a href="index.jsp">Log Out</a>
-                        <br>
-                        <br>
-                    </td>
                     <td width="1100" height="100" bgcolor="#FAF8CC">
                         <font color="brown"><h2>Funds Transfer </h2></font>
 						<h4><a href="/addBnfPage?userName=${userName}">Add Beneficiary</a>
@@ -63,21 +48,6 @@
 			</tr>
 		</table>
 	</form:form>	
-            </table>
-            <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            </table>
-
-            <table border="0" cellspacing="0" cellpadding="0" width="100%" height="63" background="HTML/images/bot.gif">
-                <tr>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0" width="780" background="" height="25">
-                            <footer>Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</footer><br/></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
+          <footer>Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</footer>
     </body>
 </html>

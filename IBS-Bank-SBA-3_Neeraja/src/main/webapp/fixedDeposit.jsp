@@ -5,39 +5,22 @@
     <head>
         <title>IBS Bank-Fixed Deposit</title>
     </head>
-   <body leftmargin=0 topmargin=0 marginheight="0" marginwidth="0" bgcolor="#FFFFFF" style="background-color:PaleGoldenRod;">
-	<h1 style="text-align:center;background-color:DarkCyan;color:White;font-size:45">IBS Bank</h1>
+   <body>
+	<h1 >IBS Bank</h1>
         
-        <form name="acctSummary" >
-            <table border="0" cellspacing="0" cellpadding="0">
+            <table>
                 <tr><td>
-                	<table border="0.5" >
-                            <tr bgcolor="#FFF0FF">
-                                <th align="center"><a href="/acctSummary?userName=${userName}">Account Summary</a></th>
-                                <th align="center"><a href="/fundsTransferHome?userName=${userName}">Funds Transfer&nbsp;&nbsp;</a></th>
-                                <th align="center"><a href="/fixedDeposit?userName=${userName}">Fixed Deposit&nbsp;&nbsp;</a></th>
-                                <th><a href="/recurringDeposit?userName=${userName}">Recurring Deposit&nbsp;&nbsp;</a></th></tr>
+                	<table>
                             <tr>
-                            <tr align="right"><p>Welcome ${userName} !! </p></tr>
+                               <jsp:include page="customerMenu.jsp"/>   
+                            <tr>
+                            <tr align="right"><p align="right">Welcome ${userName} !! </p></tr>
                         </table>
                     </td>
                 </tr>
             </table>
-            <table>
-                <tr>
-                    <td bgcolor="#E3E4FA" height="410" width="24%" valign="top">
-                        <br><strong>Services</strong><br>
-                        <a href="/acctSummary?userName=${userName}">Account Summary<br></a>
-                        <a href="fundsTransfer.jsp">Funds Transfer<br></a>
-                        <a href="accountStatement.jsp">Account Statement <br></a><br><br>
-                        <a href="changePassword.jsp">Change Password<br></a>
-                        <a href="index.jsp">Log out</a>
-                        <br>
-                        <br>
-                    </td>
-                    <td width="1100" height="80" bgcolor="#FAF8CC">
-                        <font color="brown"><h2>Account Summary</h2></font>
-                        <h3>Fixed Deposit</h3>
+                    <td width="1100" height="80" border = "1" bgcolor="#98AFC7">
+                        <font color="brown"><h2>Account Summary - Fixed Deposit</h2></font>
                         <c:choose>
 				<c:when test="${fdData==null || fdData.isEmpty()}">
 					<div class="alert alert-info">
@@ -45,8 +28,8 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-				 <table border="1" >
-                            <tr bgcolor="#98AFC7">
+				 <table >
+                           <thead> <tr align="center" bgcolor="#98AFC7">
                                <th>Account Number</th>
 								<th>Customer Name</th>
 								<th>Branch Name</th>
@@ -55,7 +38,7 @@
                             	<th>Maturity Amount</th></tr></thead>
                             <tbody>
 							<c:forEach var="c" items="${fdData }">
-								<tr bgcolor="#FAF8CC">
+								<tr  bgcolor="#FAF8CC">
 									<td>${c.custAcctNum }</td>
 									<td>${c.custName }</td>
 									<td>${c.branchName}</td>
@@ -68,25 +51,6 @@
                         </table>
                         </c:otherwise>
 			</c:choose>
-                    </td>
-                </tr>
-            </table>
-            <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            </table>
-
-            <table border="0" cellspacing="0" cellpadding="0" width="100%" height="63" background="HTML/images/bot.gif">
-                <tr>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0" width="780" background="" height="25">
-                            <tr align="center" valign="top">
-                                <td width="400"><h5 style="text-align:center;">Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</h5><br/></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
-        </form>
+            <p style="text-align:center;">Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</p>
     </body>
 </html>

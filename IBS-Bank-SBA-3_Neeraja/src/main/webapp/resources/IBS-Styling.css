@@ -1,12 +1,17 @@
 @charset "ISO-8859-1";
 
 body {
-            background-color: powderblue;
+            
+            background-color: powderBlue;
+        }
+        
+        head {
+        background-color: maroon;
         }
        
         h1 {
             color:White;
-            background-color: LightSeaGreen;
+            background-color: rgb(0, 0, 255) ;
             font-size: 5em;
             text-align: center;
             line-height: 60px;
@@ -16,6 +21,12 @@ body {
         ul {
             text-align: center;
         }
+        
+        table {
+         margin:"0.5";
+         border: 1px thin black;
+        }
+        
        
         li {
             list-style: none;

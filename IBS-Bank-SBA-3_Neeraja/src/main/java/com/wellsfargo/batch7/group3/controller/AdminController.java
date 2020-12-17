@@ -1,5 +1,6 @@
 package com.wellsfargo.batch7.group3.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wellsfargo.batch7.group3.dto.AccountStatementDto;
 import com.wellsfargo.batch7.group3.dto.KycDetailsDto;
 import com.wellsfargo.batch7.group3.exception.IBSException;
 import com.wellsfargo.batch7.group3.service.impl.AdminServiceImpl;
+import com.wellsfargo.batch7.group3.service.impl.CustomerImpl;
 
 @Controller
 @RequestMapping
@@ -24,6 +27,9 @@ public class AdminController  {
 
 	@Autowired
 	private AdminServiceImpl adminSerImpl;
+	
+	@Autowired
+	private CustomerImpl customerImpl;
 	
 	@PostMapping("/register")
 	public ModelAndView registerAction(@ModelAttribute("register") @Valid KycDetailsDto newUser, BindingResult result) throws IBSException {
@@ -37,6 +43,21 @@ public class AdminController  {
 			mv = new ModelAndView("redirect:/registrationSuccess.jsp");
 			mv.addObject("newUser", newUser );
 		}
+		return mv;
+	}
+	
+	@GetMapping("/adminStmt")
+	public ModelAndView filterAcctStmt(@ModelAttribute("adminStmt") @Valid AccountStatementDto filterStmtData) throws IBSException, ParseException {
+		ModelAndView mv = null;
+		System.out.println(filterStmtData.getCustAcctNum());
+		System.out.println(filterStmtData.getStartDate());
+		System.out.println(filterStmtData.getEndDate());
+		System.out.println(filterStmtData.getUserName());
+		
+			mv = new ModelAndView("/adminGetCustTransactions.jsp","acctStmt",customerImpl.getFilteredStatement(filterStmtData));
+//			mv.addObject("custAcctNum",customerImpl.getCustomerData(userName).get(0).getCustAcctNum());
+			mv.addObject("userName", filterStmtData.getUserName());
+			mv.addObject("custAcctNum", filterStmtData.getCustAcctNum());
 		return mv;
 	}
 	

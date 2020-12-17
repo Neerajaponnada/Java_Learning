@@ -15,7 +15,7 @@
 	}
 </script>
 	</head>
-<body>
+   <body leftmargin=0 topmargin=0 marginheight="0" marginwidth="0"  >
 	<h1>IBS Bank</h1>
 	<h3>Welcome! Register below</h3>
 	<jsp:include page="homeMenu.jsp"/>

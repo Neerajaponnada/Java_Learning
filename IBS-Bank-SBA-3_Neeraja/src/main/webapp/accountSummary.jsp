@@ -6,7 +6,7 @@
         <title>IBS Bank-Account Summary</title>
    	 		<link href ="${pageContext.request.contextPath}/resources/IBS-Styling.css" type ="text/css" rel ="stylesheet"></link>
     </head>
-   <body>
+   <body leftmargin=0 topmargin=0 marginheight="0" marginwidth="0" >
 	<h1>IBS Bank</h1>
             <table border="0" cellspacing="0" cellpadding="0" >
                 <tr><td>
@@ -21,7 +21,7 @@
             </table>
             <table>
                 <tr>
-                    <td  width="1400" height="80" bgcolor="#FAF8CC">
+                    <td  width="1400" height="80">
                         <font color="brown"><h2>Account Summary</h2></font>
                         <h3>Savings Account</h3>
                        <c:choose>
@@ -58,20 +58,7 @@
                     </td>
                 </tr>
             </table>
-            <table border="0" cellspacing="0" cellpadding="0" width="100%">
-            </table>
-
-            <table border="0" cellspacing="0" cellpadding="0" width="100%" height="63">
-                <tr>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0" width="780" background="" height="25">
-                            <footer>Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</footer></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-            </table>
+            
+           <br><footer>Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</footer>
     </body>
 </html>

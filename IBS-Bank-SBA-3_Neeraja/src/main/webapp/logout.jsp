@@ -6,7 +6,6 @@
 			<link href ="${pageContext.request.contextPath}/resources/IBS-Styling.css" type ="text/css" rel ="stylesheet"></link>
 <title>IBS Bank - Logout</title>
 </head>
-<body leftmargin=0 topmargin=0 marginheight="0" marginwidth="0" bgcolor="#FFFFFF" style="background-color:PaleGoldenRod;">
 	<body>	
 	<h1><img src="${pageContext.request.contextPath}/resources/BankLogo.jpg" width="60" height=60 /> IBS Bank </h1>
 	<h4>Safe,Secure And Convenient Banking</h4>

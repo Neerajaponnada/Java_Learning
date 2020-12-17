@@ -13,8 +13,6 @@
 	
 	<h2>Registration successful !! We will notify once your account is opened. Have a good Day !! </h2>
 	
-	 <p>
 		<footer style="text-align:center;">Copyright&copy;2020 IBS Bank.com. All rights reserved | Designed by Batch-7 Group3</footer>
-	 <p>
 </body>
 </html>

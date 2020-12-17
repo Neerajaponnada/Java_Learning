@@ -15,7 +15,8 @@
         <span> | </span>
         <a href="/acctStmt?userName=${userName}">Account Statement</a> 
         <a href="/logout.jsp">Log Out</a> 
-       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+       &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
        <em></em>
 	 <img src="${pageContext.request.contextPath}/resources/BankLogo.jpg" width="60" height="60"/>
 	<hr/>

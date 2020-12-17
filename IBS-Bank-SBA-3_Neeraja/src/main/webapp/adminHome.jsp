@@ -10,8 +10,8 @@
 <hr/>
 	<h5 align="right"> Welcome ${loginUser.getUserName}</h5>
 	<div><a href="/openRequests">Get Open Requests</a></div>
-	<div><a href="/getCustomerStatement">Get Customer Statement</a></div>
-	<div><a href="/checkTransactions">Check Transactions</a></div>
+	<div><a href="/adminGetCustTransactions.jsp">Get Customer Statement</a></div>
+	<div><a href="/adminGetCustTransactions.jsp">Check Transactions</a></div>
 	<div><a href="index.jsp">Log Out</a></div>
 	<hr/>
 	 <p>
